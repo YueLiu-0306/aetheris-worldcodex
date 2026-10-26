@@ -1,4 +1,7 @@
 
+// progressive enhancement flag
+if (typeof document!=='undefined') document.documentElement.classList.add('js');
+
 // svg namespace (shared)
 const NS='http://www.w3.org/2000/svg';
 

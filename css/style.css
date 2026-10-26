@@ -91,8 +91,8 @@ section{padding:8rem 8vw;max-width:1200px;margin:0 auto;position:relative;scroll
 h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;color:var(--crystal);letter-spacing:.12em;margin-bottom:.6rem}
 h2 .en{font-family:var(--latin);font-weight:400;font-style:italic;color:var(--aether);margin-left:1rem;font-size:.62em;letter-spacing:.15em}
 .sec-intro{max-width:680px;color:var(--dim);margin-bottom:3.5rem;font-size:.95rem}
-.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
-.reveal.on{opacity:1;transform:none}
+.js .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
+.js .reveal.on{opacity:1;transform:none}
 
 /* aether theory */
 .theory-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:start}
