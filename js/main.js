@@ -1,4 +1,7 @@
 
+// svg namespace (shared)
+const NS='http://www.w3.org/2000/svg';
+
 // aether particles
 const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
 let W,H,ps=[];
@@ -104,7 +107,7 @@ if (document.getElementById('fgraph')) {
    ['eic','council','物价 · 矛盾','EIC 垄断 60% 物资进口并握有定价权，定居者不满但无可奈何；议会反复抗议收效甚微。'],
    ['tide','free','情报 · 黑市','在码头街市场说对暗号，自然会有人来找你——潮汐帮是自由探索者情报与违禁装备的重要来源。'],
    ['confluence','free','同行者','汇流尊重自由探索者的独立，部分成员以个人身份加入探索队，只为离 AM-001 更近一点。']];
-  const svg=document.getElementById('fgraph'),NS='http://www.w3.org/2000/svg';
+  const svg=document.getElementById('fgraph');
   function fgInit(){
    FE.forEach((e,i)=>{const a=FN.find(f=>f.id===e[0]),b=FN.find(f=>f.id===e[1]);
     const ln=document.createElementNS(NS,'line');ln.setAttribute('x1',a.x);ln.setAttribute('y1',a.y);ln.setAttribute('x2',b.x);ln.setAttribute('y2',b.y);
@@ -170,3 +173,17 @@ addEventListener('scroll',()=>nav.classList.toggle('shrunk',scrollY>60));
 // reveal on scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---------- nav active state ----------
+(function(){
+  const here=(location.pathname.split('/').pop()||'index.html');
+  const links=document.querySelectorAll('#nav .links a');
+  if(here!=='index.html') return; // subpages keep their static .on
+  links.forEach(a=>{if(a.getAttribute('href').startsWith('index.html#'))a.classList.remove('on')});
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){
+      links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id||a.getAttribute('href')==='index.html#'+e.target.id));
+    }});
+  },{rootMargin:'-35% 0px -55% 0px'});
+  ['ether','history','am001'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+})();
