@@ -4,10 +4,424 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AETHERIS · 未及深渊之上，皆由以太构筑</title>
-<meta name="description" content="AETHERIS 世界观档案：巨构体 AM-001、以太、观测史与共栖纪元。">
+<meta name="description" content="AETHERIS 世界观档案：巨构体 AM-001、以太、观测史、区域地图、势力、异能、异构体图鉴与结晶经济。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230d0b1a'/%3E%3Ccircle cx='32' cy='32' r='29' fill='none' stroke='%239d7bff' stroke-width='2'/%3E%3Ctext x='32' y='43' font-size='32' text-anchor='middle' fill='%23c9b4ff' font-family='Georgia'%3E%C3%86%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@300;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<style>
+:root{
+  --void:#07060e;
+  --abyss:#0d0b1a;
+  --panel:rgba(20,16,38,.55);
+  --aether:#9d7bff;
+  --aether-deep:#5b3fd4;
+  --glow:#c9b4ff;
+  --crystal:#e8dcff;
+  --gold:#d4b06a;
+  --danger:#ff6b8a;
+  --text:#cfc8e0;
+  --dim:#8a82a3;
+  --line:rgba(157,123,255,.18);
+  --serif:'Noto Serif SC','Source Han Serif SC','Source Han Serif CN','思源宋体','华文中宋','STZhongsong','SimSun',serif;
+  --latin:'Cormorant Garamond',Georgia,'Palatino Linotype','Times New Roman',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+img{max-width:100%}
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:var(--serif);
+  font-weight:300;
+  line-height:1.9;
+  overflow-x:hidden;
+}
+::selection{background:var(--aether-deep);color:#fff}
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--aether-deep),var(--aether));border-radius:4px}
+
+/* ---------- background atmosphere ---------- */
+#veil{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(ellipse 80% 50% at 70% -10%, rgba(91,63,212,.22), transparent 60%),
+  radial-gradient(ellipse 60% 40% at 10% 110%, rgba(157,123,255,.10), transparent 60%),
+  radial-gradient(ellipse 40% 30% at 50% 50%, rgba(212,176,106,.04), transparent 70%),
+  var(--void);}
+#grain{position:fixed;inset:0;z-index:-2;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");}
+#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.sigil{position:fixed;z-index:-1;pointer-events:none;opacity:.05;
+  border:1px solid var(--aether);border-radius:50%;}
+.sigil.a{width:70vmax;height:70vmax;top:-25vmax;right:-30vmax;animation:spin 240s linear infinite}
+.sigil.b{width:44vmax;height:44vmax;bottom:-18vmax;left:-14vmax;border-style:dashed;animation:spin 180s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 4vw;backdrop-filter:blur(14px);
+  background:linear-gradient(rgba(7,6,14,.75),rgba(7,6,14,.25));
+  border-bottom:1px solid var(--line);transition:padding .4s}
+nav.shrunk{padding:.6rem 4vw}
+.logo{font-family:var(--latin);font-size:1.35rem;letter-spacing:.45em;color:var(--crystal);text-decoration:none}
+.logo b{color:var(--aether);font-weight:600}
+nav .links{display:flex;gap:1.8rem}
+nav .links::-webkit-scrollbar{display:none}
+nav .links a{color:var(--dim);text-decoration:none;font-size:.85rem;letter-spacing:.25em;transition:color .3s;position:relative}
+nav .links a:hover{color:var(--glow)}
+nav .links a::after{content:'';position:absolute;left:50%;bottom:-6px;width:0;height:1px;background:var(--aether);transition:.35s;transform:translateX(-50%)}
+nav .links a:hover::after{width:100%}
+
+/* ---------- hero ---------- */
+header{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:6rem 6vw 4rem;position:relative}
+.hero-kicker{font-family:var(--latin);letter-spacing:.6em;font-size:.85rem;color:var(--gold);text-transform:uppercase;
+  opacity:0;animation:rise 1.2s .2s forwards}
+h1.hero-title{font-size:clamp(3.5rem,11vw,8.5rem);font-weight:900;letter-spacing:.18em;
+  background:linear-gradient(180deg,#fff 0%,var(--crystal) 40%,var(--aether) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin:1.2rem 0 .6rem;opacity:0;animation:rise 1.4s .5s forwards;
+  filter:drop-shadow(0 0 42px rgba(157,123,255,.35))}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.35rem);color:var(--text);letter-spacing:.35em;
+  opacity:0;animation:rise 1.4s .9s forwards}
+.hero-sub em{font-style:normal;color:var(--glow)}
+.hero-desc{max-width:640px;margin:2.6rem auto 0;color:var(--dim);font-size:.95rem;
+  opacity:0;animation:rise 1.4s 1.25s forwards}
+.hero-meta{display:flex;gap:3.5rem;margin-top:3rem;opacity:0;animation:rise 1.4s 1.6s forwards;flex-wrap:wrap;justify-content:center}
+.hero-meta div{text-align:center}
+.hero-meta .num{font-family:var(--latin);font-size:2rem;color:var(--crystal);font-weight:400}
+.hero-meta .lab{font-size:.72rem;letter-spacing:.3em;color:var(--dim);margin-top:.2rem}
+.scroll-hint{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);color:var(--dim);
+  font-size:.7rem;letter-spacing:.4em;animation:bob 2.6s ease-in-out infinite;opacity:.7}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* ---------- sections ---------- */
+section{padding:8rem 8vw;max-width:1200px;margin:0 auto;position:relative;scroll-margin-top:84px}
+.sec-tag{font-family:var(--latin);letter-spacing:.5em;font-size:.75rem;color:var(--gold);text-transform:uppercase;margin-bottom:.9rem}
+h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;color:var(--crystal);letter-spacing:.12em;margin-bottom:.6rem}
+h2 .en{font-family:var(--latin);font-weight:400;font-style:italic;color:var(--aether);margin-left:1rem;font-size:.62em;letter-spacing:.15em}
+.sec-intro{max-width:680px;color:var(--dim);margin-bottom:3.5rem;font-size:.95rem}
+.js .reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
+.js .reveal.on{opacity:1;transform:none}
+
+/* aether theory */
+.theory-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:start}
+.meditate{position:relative;padding:2.5rem;border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(8px);
+  border-radius:2px}
+.meditate::before{content:'';position:absolute;inset:8px;border:1px solid rgba(212,176,106,.15);pointer-events:none}
+.meditate h3{color:var(--glow);font-weight:500;letter-spacing:.2em;margin-bottom:1rem;font-size:1.05rem}
+.meditate p{font-size:.92rem;color:var(--text)}
+.essence{display:grid;gap:1.2rem}
+.ess{border-left:2px solid var(--aether-deep);padding:.9rem 1.4rem;background:linear-gradient(90deg,rgba(91,63,212,.12),transparent);transition:.4s}
+.ess:hover{border-color:var(--aether);transform:translateX(8px)}
+.ess b{display:block;color:var(--crystal);letter-spacing:.15em;font-weight:500;margin-bottom:.3rem;font-size:.95rem}
+.ess span{font-size:.85rem;color:var(--dim)}
+.water-cycle{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap}
+.wc-node{padding:1rem 1.8rem;border:1px solid var(--line);text-align:center;font-size:.88rem;letter-spacing:.2em;color:var(--text);background:var(--panel)}
+.wc-node small{display:block;font-size:.68rem;color:var(--dim);letter-spacing:.1em;margin-top:.3rem}
+.wc-arrow{color:var(--aether);font-family:var(--latin);font-size:1.4rem}
+
+/* timeline */
+.timeline{position:relative;margin-top:1rem}
+.timeline::before{content:'';position:absolute;left:110px;top:0;bottom:0;width:1px;
+  background:linear-gradient(var(--aether-deep),var(--aether),transparent)}
+.tl-item{display:grid;grid-template-columns:90px 40px 1fr;gap:0;margin-bottom:2.6rem;align-items:baseline}
+.tl-when{font-family:var(--latin);color:var(--gold);font-size:1.05rem;text-align:right;padding-right:.2rem}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:var(--void);border:2px solid var(--aether);
+  position:relative;left:15px;top:2px;box-shadow:0 0 14px rgba(157,123,255,.7)}
+.tl-item h3{color:var(--crystal);font-weight:500;letter-spacing:.12em;font-size:1.05rem;margin-bottom:.4rem}
+.tl-item p{font-size:.88rem;color:var(--dim);max-width:640px}
+
+/* AM-001 structure */
+.am-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
+.layers{display:flex;flex-direction:column;gap:1rem;perspective:800px}
+.layer{padding:1.4rem 1.8rem;border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(6px);
+  transform:rotateY(-4deg);transition:.5s;position:relative;overflow:hidden}
+.layer::after{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:var(--aether);opacity:.5}
+.layer:nth-child(1){margin-right:0}
+.layer:nth-child(2){margin-left:2.5rem;border-color:rgba(212,176,106,.25)}
+.layer:nth-child(2)::after{background:var(--gold)}
+.layer:nth-child(3){margin-left:5rem;border-color:rgba(255,107,138,.25)}
+.layer:nth-child(3)::after{background:var(--danger)}
+.layer:hover{transform:rotateY(0) translateX(6px);box-shadow:0 8px 40px rgba(91,63,212,.25)}
+.layer b{display:block;color:var(--crystal);letter-spacing:.2em;font-weight:500;margin-bottom:.3rem}
+.layer span{font-size:.85rem;color:var(--dim)}
+.am-visual{position:relative;height:420px;display:flex;align-items:center;justify-content:center}
+.orb{position:absolute;border-radius:50%;border:1px solid var(--aether);animation:breathe 7s ease-in-out infinite}
+.orb.o1{width:340px;height:340px;opacity:.9}
+.orb.o2{width:250px;height:250px;border-style:dashed;animation-delay:-2s}
+.orb.o3{width:150px;height:150px;border-color:var(--gold);animation-delay:-4s}
+.orb.core{width:56px;height:56px;background:radial-gradient(circle,var(--glow),var(--aether-deep) 70%);
+  box-shadow:0 0 60px 20px rgba(157,123,255,.5);border:none;animation:pulse 3s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 60px 20px rgba(157,123,255,.5)}50%{box-shadow:0 0 90px 34px rgba(157,123,255,.75)}}
+.orb-label{position:absolute;font-size:.7rem;letter-spacing:.25em;color:var(--dim)}
+.hypo{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.hypo div{border-top:2px solid var(--aether-deep);padding-top:1rem}
+.hypo b{color:var(--glow);font-weight:500;letter-spacing:.15em;display:block;margin-bottom:.4rem;font-size:.95rem}
+.hypo p{font-size:.83rem;color:var(--dim)}
+
+/* regions S-0 ~ S-5 */
+.region-rail{display:flex;gap:1rem;overflow-x:auto;padding:1rem .2rem 2rem;scrollbar-width:thin}
+.region{min-width:250px;flex:1;border:1px solid var(--line);background:var(--panel);padding:1.6rem 1.4rem;
+  position:relative;transition:.45s;overflow:hidden}
+.region::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--lv),transparent)}
+.region:hover{transform:translateY(-8px);border-color:var(--lv);box-shadow:0 14px 50px rgba(91,63,212,.2)}
+.region .s-code{font-family:var(--latin);font-size:2.2rem;color:var(--lv);line-height:1}
+.region h3{font-size:1rem;font-weight:500;color:var(--crystal);letter-spacing:.2em;margin:.7rem 0 .5rem}
+.region .st{font-size:.65rem;letter-spacing:.3em;color:var(--lv);border:1px solid var(--lv);display:inline-block;padding:.15rem .6rem;margin-bottom:.8rem}
+.region p{font-size:.8rem;color:var(--dim);line-height:1.8}
+
+/* settlements */
+.settle-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.settle{border:1px solid var(--line);background:var(--panel);padding:1.6rem;position:relative;transition:.4s}
+.settle:hover{border-color:var(--aether);transform:translateY(-5px)}
+.settle .p-code{position:absolute;top:1.2rem;right:1.4rem;font-family:var(--latin);font-size:1.9rem;color:rgba(157,123,255,.28);font-weight:400}
+.settle h3{color:var(--crystal);font-weight:500;letter-spacing:.15em;margin-bottom:.3rem}
+.settle .pop{font-size:.7rem;letter-spacing:.25em;color:var(--gold);margin-bottom:.8rem}
+.settle p{font-size:.85rem;color:var(--dim)}
+
+/* factions */
+.fac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.6rem}
+.fac{border:1px solid var(--line);background:linear-gradient(160deg,rgba(20,16,38,.7),rgba(13,11,26,.4));
+  padding:2rem 1.8rem;position:relative;transition:.45s;overflow:hidden}
+.fac::after{content:attr(data-glyph);position:absolute;right:-10px;bottom:-28px;font-family:var(--latin);
+  font-size:6.5rem;color:rgba(157,123,255,.07);font-weight:600;line-height:1}
+.fac:hover{border-color:var(--aether);transform:translateY(-6px);box-shadow:0 18px 60px rgba(91,63,212,.18)}
+.fac .fk{font-size:.65rem;letter-spacing:.35em;color:var(--gold);text-transform:uppercase}
+.fac h3{color:var(--crystal);font-weight:700;font-size:1.25rem;letter-spacing:.1em;margin:.5rem 0 .9rem}
+.fac h3 span{font-family:var(--latin);font-weight:400;font-style:italic;color:var(--aether);font-size:.75em;margin-left:.6rem}
+.fac p{font-size:.86rem;color:var(--dim);margin-bottom:1rem}
+.fac .quote{font-size:.8rem;color:var(--glow);font-style:italic;border-left:2px solid var(--aether-deep);padding-left:1rem}
+
+/* abilities */
+.abil-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-bottom:4rem}
+.abil{border:1px solid var(--line);padding:1.5rem;background:var(--panel);transition:.4s;position:relative}
+.abil:hover{border-color:var(--aether);transform:translateY(-5px)}
+.abil .glyph{font-family:var(--latin);font-size:1.6rem;color:var(--aether);margin-bottom:.5rem}
+.abil b{display:block;color:var(--crystal);font-weight:500;letter-spacing:.18em;margin-bottom:.4rem}
+.abil span{font-size:.8rem;color:var(--dim)}
+.er-scale{display:flex;gap:2px;margin-top:1rem;border:1px solid var(--line)}
+.er-seg{flex:1;padding:1.2rem 1rem;text-align:center}
+.er-seg .rng{font-family:var(--latin);font-size:1.2rem;color:var(--crystal)}
+.er-seg p{font-size:.75rem;color:var(--dim);margin-top:.4rem}
+.er-seg.e1{background:rgba(157,123,255,.08)}
+.er-seg.e2{background:rgba(212,176,106,.10)}
+.er-seg.e3{background:rgba(255,107,138,.12)}
+.er-seg.e3 .rng{color:var(--danger)}
+
+/* bestiary */
+.beast-list{display:grid;gap:1.4rem}
+.beast{display:grid;grid-template-columns:130px 1fr;gap:1.8rem;border:1px solid var(--line);background:var(--panel);
+  padding:1.6rem;transition:.4s;align-items:center}
+.beast:hover{border-color:var(--lv);transform:translateX(6px)}
+.beast .lv{text-align:center;border-right:1px solid var(--line);padding-right:1.4rem}
+.beast .lv .n{font-size:1.05rem;color:var(--crystal);font-weight:500;letter-spacing:.1em}
+.beast .lv .d{font-family:var(--latin);font-size:.75rem;color:var(--lv);letter-spacing:.2em;margin-top:.3rem}
+.beast h3{color:var(--glow);font-weight:500;letter-spacing:.2em;font-size:1.1rem;margin-bottom:.4rem}
+.beast p{font-size:.85rem;color:var(--dim)}
+
+/* crystals / tech / economy */
+.tri{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem}
+.card{border:1px solid var(--line);background:var(--panel);padding:2rem 1.8rem;transition:.4s}
+.card:hover{border-color:var(--aether);transform:translateY(-5px)}
+.card h3{color:var(--crystal);font-weight:500;letter-spacing:.2em;margin-bottom:1.1rem;font-size:1.05rem}
+.card ul{list-style:none}
+.card li{font-size:.85rem;color:var(--dim);padding:.55rem 0;border-bottom:1px dashed rgba(157,123,255,.12)}
+.card li:last-child{border-bottom:none}
+.card li b{color:var(--glow);font-weight:500}
+
+/* glossary */
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.gl{border-left:2px solid var(--aether-deep);padding:.8rem 1.2rem;background:rgba(91,63,212,.06)}
+.gl b{color:var(--crystal);font-weight:500;letter-spacing:.15em;font-family:var(--latin)}
+.gl p{font-size:.82rem;color:var(--dim);margin-top:.3rem}
+
+/* hero background art */
+.hero-bg{position:absolute;inset:0;overflow:hidden;z-index:-1}
+.hero-bg.noimg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 65% 20%,rgba(91,63,212,.35),transparent 65%)}
+.hero-bg.noimg img{display:none}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.5;animation:heroZoom 34s ease-in-out infinite alternate}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,6,14,.55),rgba(7,6,14,.2) 45%,var(--void))}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--aether-deep),var(--glow));box-shadow:0 0 8px rgba(157,123,255,.8)}
+/* region art */
+.region .img{margin:-1.6rem -1.4rem 1.1rem;height:132px;overflow:hidden}
+.region .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .6s}
+.region:hover .img img{transform:scale(1.07)}
+@media(max-width:640px){.region{min-width:250px}.region .img{margin:-1.3rem -1.1rem 1rem;height:118px}}
+/* data tables */
+.table-wrap{overflow-x:auto;margin-top:1rem}
+.rtable{width:100%;border-collapse:collapse;font-size:.83rem;min-width:520px}
+.rtable th{color:var(--gold);letter-spacing:.18em;font-weight:500;text-align:left;padding:.7rem .8rem;border-bottom:1px solid var(--line);font-size:.72rem;white-space:nowrap}
+.rtable td{padding:.7rem .8rem;border-bottom:1px dashed rgba(157,123,255,.12);color:var(--dim);vertical-align:top;line-height:1.7}
+.rtable td:first-child{color:var(--glow);white-space:nowrap}
+/* clickable profile map */
+.profile{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:start;border:1px solid var(--line);background:var(--panel);padding:2.2rem}
+.pmap{display:flex;flex-direction:column;gap:.55rem;align-items:center}
+.pzone{width:100%;padding:1rem 1.4rem;cursor:pointer;border:1px solid var(--line);background:rgba(157,123,255,.05);transition:.35s;text-align:left;position:relative;font-family:var(--serif)}
+.pzone::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lv);opacity:.6;transition:.35s}
+.pzone:hover{background:rgba(157,123,255,.12)}
+.pzone.active{background:rgba(157,123,255,.16);border-color:var(--lv);box-shadow:0 0 24px rgba(157,123,255,.25)}
+.pzone b{display:block;color:var(--crystal);letter-spacing:.15em;font-weight:500;font-size:.92rem}
+.pzone span{font-size:.72rem;color:var(--dim);letter-spacing:.1em}
+.pzone.core-z{width:62%;text-align:center}
+.pzone.core-z::before{display:none}
+.pdetail{border-left:1px solid var(--line);padding-left:2.2rem;min-height:320px}
+.pdetail h3{color:var(--lv,var(--glow));letter-spacing:.2em;font-weight:500;font-size:1.1rem;margin-bottom:.6rem}
+.pdetail .pd-status{font-size:.68rem;letter-spacing:.28em;color:var(--lv,var(--gold));border:1px solid var(--lv,var(--gold));display:inline-block;padding:.15rem .7rem;margin-bottom:1rem}
+.pdetail p{font-size:.88rem;color:var(--dim);margin-bottom:.9rem}
+.pdetail .pd-row{font-size:.8rem;padding:.45rem 0;border-bottom:1px dashed rgba(157,123,255,.12)}
+.pdetail .pd-row b{color:var(--crystal);font-weight:500}
+@media(max-width:900px){.profile{grid-template-columns:1fr}.pdetail{border-left:none;padding-left:0;min-height:0;border-top:1px solid var(--line);padding-top:1.5rem}}
+/* erosion demo */
+.er-demo{margin-top:2.5rem;border:1px solid var(--line);background:var(--panel);padding:2rem}
+.er-demo h3{color:var(--gold);letter-spacing:.25em;font-weight:500;font-size:1rem;margin-bottom:1.4rem}
+.er-bar{height:14px;border:1px solid var(--line);position:relative;background:rgba(0,0,0,.35)}
+.er-fill{height:100%;width:12%;background:linear-gradient(90deg,var(--aether),var(--aether-deep));transition:width .5s,background .5s}
+.er-readout{display:flex;justify-content:space-between;align-items:baseline;margin-top:1rem;flex-wrap:wrap;gap:.8rem}
+.er-val{font-family:var(--latin);font-size:2rem;color:var(--crystal)}
+.er-stage{font-size:.78rem;letter-spacing:.22em;padding:.2rem .8rem;border:1px solid var(--line)}
+.er-log{font-size:.82rem;color:var(--dim);margin-top:1rem;min-height:3.2em}
+.er-btns{margin-top:1.2rem;display:flex;gap:.9rem;flex-wrap:wrap}
+.er-btn{font-family:var(--serif);cursor:pointer;background:transparent;color:var(--glow);border:1px solid var(--aether-deep);padding:.55rem 1.4rem;letter-spacing:.2em;font-size:.82rem;transition:.3s}
+.er-btn:hover{background:rgba(157,123,255,.15)}
+.er-btn.warn{color:var(--danger);border-color:rgba(255,107,138,.4)}
+/* beast art */
+.beast.with-art{grid-template-columns:190px 110px 1fr}
+.beast .bimg{height:150px;overflow:hidden;border:1px solid var(--line)}
+.beast .bimg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.beast:hover .bimg img{transform:scale(1.07)}
+@media(max-width:900px){.beast.with-art{grid-template-columns:1fr}.beast .bimg{height:180px}}
+/* event calendar */
+.cal-wrap{margin-top:2.5rem;border:1px solid var(--line);background:var(--panel);padding:2rem}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.4rem;flex-wrap:wrap;gap:.8rem}
+.cal-head h3{color:var(--gold);letter-spacing:.25em;font-weight:500;font-size:1rem}
+.cal-nav{display:flex;gap:.6rem;align-items:center}
+.cal-nav button{font-family:var(--serif);cursor:pointer;background:transparent;color:var(--glow);border:1px solid var(--aether-deep);padding:.3rem .9rem;transition:.3s}
+.cal-nav button:hover{background:rgba(157,123,255,.15)}
+.cal-month{font-family:var(--latin);font-size:1.15rem;color:var(--crystal);letter-spacing:.15em;min-width:10rem;text-align:center}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.cal-wd{text-align:center;font-size:.68rem;letter-spacing:.2em;color:var(--dim);padding:.3rem 0}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.82rem;color:var(--text);border:1px solid rgba(157,123,255,.08);position:relative;transition:.3s;cursor:default}
+.cal-day:hover{border-color:var(--aether)}
+.cal-day.out{opacity:.22}
+.cal-day.today{border-color:var(--gold);box-shadow:0 0 10px rgba(212,176,106,.35)}
+.cal-day .mk{position:absolute;bottom:6px;display:flex;gap:3px}
+.cal-day .mk i{width:7px;height:7px;border-radius:50%}
+.mk .m-stay{background:var(--glow);box-shadow:0 0 6px var(--glow)}
+.mk .m-pulse{background:var(--danger);box-shadow:0 0 6px var(--danger)}
+.cal-legend{display:flex;gap:1.6rem;margin-top:1.2rem;font-size:.75rem;color:var(--dim);flex-wrap:wrap}
+.cal-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem}
+.cal-tip{font-size:.8rem;color:var(--dim);margin-top:.8rem;min-height:2.6em;transition:.3s}
+/* faction graph */
+.fg-wrap{margin-top:3.5rem;border:1px solid var(--line);background:var(--panel);padding:2rem}
+.fg-wrap h3{color:var(--gold);letter-spacing:.25em;font-weight:500;font-size:1rem;margin-bottom:.4rem}
+.fg-wrap .fg-sub{font-size:.8rem;color:var(--dim);margin-bottom:1rem}
+#fgraph{width:100%;height:auto;display:block}
+#fgraph text{font-family:var(--serif);pointer-events:none}
+.fnode{cursor:pointer}
+.fnode circle{transition:.3s}
+.fnode:hover circle,.fnode.active circle{filter:drop-shadow(0 0 10px rgba(157,123,255,.9))}
+.fnode.active circle{stroke-width:3}
+.fedge{transition:.3s;cursor:pointer}
+.fedge:hover{stroke-width:3}
+.fg-detail{border-top:1px solid var(--line);margin-top:1.2rem;padding-top:1.2rem;font-size:.85rem;color:var(--dim);min-height:4.2em}
+.fg-detail b{color:var(--glow)}
+@media(max-width:640px){.fg-wrap{padding:1.2rem}}
+/* surface overview map */
+.map-wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:2rem;align-items:stretch;border:1px solid var(--line);background:var(--panel);padding:2rem}
+#smap{width:100%;height:auto;display:block}
+#smap .mzone{cursor:pointer;transition:.3s}
+#smap .mzone:hover{filter:brightness(1.6)}
+#smap .mzone.active{filter:brightness(1.8)}
+#smap .mzone ellipse{stroke-width:1.2}
+#smap .mzone text{font-family:var(--latin);pointer-events:none;letter-spacing:.2em}
+#smap .mnode{cursor:pointer}
+#smap .mnode circle.mdot{fill:var(--gold);transition:.3s}
+#smap .mnode:hover circle.mdot,#smap .mnode.active circle.mdot{fill:#fff;filter:drop-shadow(0 0 8px var(--gold))}
+#smap .mnode text{font-family:var(--serif);pointer-events:none;fill:#e8dcff;font-size:12.5px}
+.map-detail{border-left:1px solid var(--line);padding-left:2rem;display:flex;flex-direction:column;justify-content:center}
+.map-detail h3{color:var(--gold);letter-spacing:.2em;font-weight:500;font-size:1.1rem;margin-bottom:.6rem}
+.map-detail .md-tag{font-size:.66rem;letter-spacing:.28em;border:1px solid var(--gold);color:var(--gold);display:inline-block;padding:.15rem .7rem;margin-bottom:1rem;width:fit-content}
+.map-detail p{font-size:.86rem;color:var(--dim);margin-bottom:1rem}
+.map-detail .pd-row{font-size:.8rem;padding:.45rem 0;border-bottom:1px dashed rgba(157,123,255,.12)}
+.map-detail .pd-row b{color:var(--crystal);font-weight:500}
+.map-legend{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1rem;font-size:.72rem;color:var(--dim)}
+.map-legend span{display:flex;align-items:center;gap:.45rem}
+.map-legend i{width:10px;height:10px;border-radius:50%}
+@media(max-width:900px){.map-wrap{grid-template-columns:1fr}.map-detail{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:1.5rem}}
+@media(max-width:640px){.map-wrap{padding:1.2rem}}
+footer{padding:5rem 8vw 4rem;text-align:center;border-top:1px solid var(--line);margin-top:4rem}
+footer .fl{font-family:var(--latin);letter-spacing:.5em;color:var(--aether);font-size:1.1rem}
+footer p{color:var(--dim);font-size:.8rem;margin-top:1rem;letter-spacing:.15em}
+
+/* ---------- tablet ---------- */
+@media(max-width:1024px){
+  section{padding:6rem 6vw}
+  .hero-meta{gap:2rem}
+}
+/* ---------- mobile ---------- */
+@media(max-width:900px){
+  section{padding:4.5rem 6vw}
+  .theory-grid,.am-wrap,.abil-wrap{grid-template-columns:1fr}
+  .hypo{grid-template-columns:1fr;gap:1.6rem}
+  .timeline::before{left:14px}
+  .tl-item{grid-template-columns:24px 1fr;gap:.6rem 1rem;margin-bottom:2.2rem}
+  .tl-when{text-align:left;grid-column:2;order:-1;font-size:.95rem}
+  .tl-dot{left:7px;top:6px}
+  .beast{grid-template-columns:1fr}
+  .beast .lv{border-right:none;border-bottom:1px solid var(--line);padding:0 0 1rem}
+  .am-visual{display:none}
+  .layers .layer:nth-child(2){margin-left:1.2rem}
+  .layers .layer:nth-child(3){margin-left:2.4rem}
+  .meditate{padding:1.6rem}
+}
+@media(max-width:640px){
+  html{font-size:15px}
+  nav{padding:.8rem 5vw}
+  nav.shrunk{padding:.55rem 5vw}
+  .logo{font-size:1.05rem;letter-spacing:.3em}
+  nav .links{gap:1.15rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    flex:1;justify-content:flex-end;margin-left:1rem}
+  nav .links a{font-size:.72rem;letter-spacing:.14em;white-space:nowrap}
+  header{padding:5rem 6vw 3.5rem;justify-content:flex-end}
+  .hero-kicker{letter-spacing:.4em;font-size:.7rem}
+  h1.hero-title{letter-spacing:.1em;margin:.9rem 0 .5rem}
+  .hero-sub{letter-spacing:.22em;font-size:.95rem}
+  .hero-desc{font-size:.85rem;margin-top:2rem}
+  .hero-meta{gap:1.4rem;margin-top:2.2rem}
+  .hero-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;width:100%;max-width:320px}
+  .hero-meta .num{font-size:1.45rem}
+  .scroll-hint{bottom:1.3rem}
+  section{padding:3.5rem 7vw}
+  h2 .en{display:block;margin:.4rem 0 0}
+  .sec-intro{margin-bottom:2.4rem}
+  .ess:hover{transform:none}
+  .water-cycle{gap:.8rem}
+  .wc-node{padding:.8rem 1rem;font-size:.78rem;letter-spacing:.12em}
+  .wc-arrow{font-size:1.1rem}
+  .region-rail{gap:.7rem;margin:0 -7vw;padding:1rem 7vw 1.8rem}
+  .region{min-width:216px;padding:1.3rem 1.1rem}
+  .settle-grid,.fac-grid,.tri,.gloss{grid-template-columns:1fr;gap:1.1rem}
+  .fac{padding:1.5rem 1.3rem}
+  .fac::after{font-size:5rem;bottom:-20px}
+  .abil-wrap{gap:.9rem}
+  .abil{padding:1.2rem}
+  .er-seg{padding:1rem .5rem}
+  .er-seg .rng{font-size:1rem}
+  .er-seg p{font-size:.68rem}
+  .beast{padding:1.2rem;gap:1rem}
+  .card{padding:1.5rem 1.3rem}
+  .region:hover,.settle:hover,.fac:hover,.abil:hover,.card:hover,.ess:hover{transform:none}
+  footer{padding:3.5rem 7vw 3rem}
+  #particles{display:none}
+  .sigil.a{width:110vmax;height:110vmax}
+  .sigil.b{width:70vmax;height:70vmax}
+}
+
+nav .links a.on{color:var(--glow)}
+nav .links a.on::after{width:100%}
+</style>
 </head>
 <body>
 <div id="veil"></div><div id="grain"></div>
@@ -15,8 +429,12 @@
 <div class="sigil a"></div><div class="sigil b"></div>
 <div id="progress"></div>
 <nav id="nav">
-  <a class="logo" href="index.html"><b>Æ</b>THERIS</a>
-  <div class="links"><a href="index.html#ether">以太</a><a href="index.html#history">观测史</a><a href="index.html#am001">AM-001</a><a href="regions.html">区域与地图</a><a href="factions.html">势力</a><a href="powers.html">异能</a><a href="bestiary.html">异构体</a><a href="economy.html">结晶经济</a></div>
+  <a class="logo" href="#top"><b>Æ</b>THERIS</a>
+  <div class="links">
+    <a href="#ether">以太</a><a href="#history">观测史</a><a href="#am001">AM-001</a>
+    <a href="#regions">区域与地图</a><a href="#factions">势力</a><a href="#powers">异能</a>
+    <a href="#bestiary">异构体</a><a href="#crystal">结晶经济</a><a href="#gloss">术语</a>
+  </div>
 </nav>
 <header id="top">
   <div class="hero-bg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwy4Lrfb" alt="巨构体 AM-001" onerror="this.parentElement.classList.add('noimg')"></div>
@@ -31,7 +449,8 @@
     <div><div class="num">S-0 ~ S-5</div><div class="lab">以太密度分区</div></div>
   </div>
   <div class="scroll-hint">▼ 深入观测</div>
-</header><section id="ether" class="reveal">
+</header>
+<section id="ether" class="reveal">
   <div class="sec-tag">Chapter Ⅰ · Essence</div>
   <h2>以太<span class="en">The Aether</span></h2>
   <p class="sec-intro">以太是弥漫于空间的基础介质。它不是物质，也不是能量——如同网格之于像素、琴弦之于音符：万物在其上展开，却几乎不与之发生可测量的物理交互。</p>
@@ -54,7 +473,8 @@
       </div>
     </div>
   </div>
-</section><section id="history" class="reveal">
+</section>
+<section id="history" class="reveal">
   <div class="sec-tag">Chapter Ⅱ · Chronicle</div>
   <h2>观测史<span class="en">A History of Seeing</span></h2>
   <p class="sec-intro">从远古神话中的模糊描述，到现代学术体系下的系统观测，人类对 Aetheris 的认知跨越数千年。</p>
@@ -67,7 +487,8 @@
     <div class="tl-item"><div class="tl-when">1988–2000</div><div class="tl-dot"></div><div><h3>接触纪元</h3><p>各国试探、测绘、争夺。人类第一次在 Aetheris 之上建立据点。</p></div></div>
     <div class="tl-item"><div class="tl-when">2001–今</div><div class="tl-dot"></div><div><h3>共栖纪元</h3><p>各方势力在巨构体上共存、探索、争夺资源——故事发生的现在。</p></div></div>
   </div>
-</section><section id="am001" class="reveal">
+</section>
+<section id="am001" class="reveal">
   <div class="sec-tag">Chapter Ⅲ · Megastructure</div>
   <h2>巨构体 AM-001<span class="en">The Colossus</span></h2>
   <p class="sec-intro">像城市一样巨大、悬浮于海洋之中的 Aetheris。38 年来它并非静止——以太密度正以缓慢但可测量的速率上升，新区域随时间浮现，深处仍藏着未被理解的东西。</p>
@@ -101,11 +522,457 @@
     <div class="pdetail" id="pdetail"></div>
   </div>
 </section>
+<section id="regions" class="reveal">
+  <div class="sec-tag">Chapter Ⅳ · Geography</div>
+  <h2>区域分级<span class="en">S-0 → S-5</span></h2>
+  <p class="sec-intro">越深入，以太越浓；越浓，越危险——但回报也越丰厚。没有免费的午餐。</p>
+  <div class="region-rail">
+    <div class="region" style="--lv:#8a9fd4"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwy91qch" alt="S-0 边缘带"></div><div class="s-code">S-0</div><h3>边缘带</h3><div class="st">已定居</div><p>最外侧约一公里宽的环形带，密度最低，异常与异构体极少，是定居者的主要居住区。</p></div>
+    <div class="region" style="--lv:#9d7bff"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwydhp95" alt="S-1 渡口区"></div><div class="s-code">S-1</div><h3>渡口区</h3><div class="st">已开发</div><p>港口码头与物资中转设施所在，AM-001 与外部世界的交通枢纽，异构体偶发。</p></div>
+    <div class="region" style="--lv:#b78aff"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwyhOZe8" alt="S-2 低洼地"></div><div class="s-code">S-2</div><h3>低洼地</h3><div class="st">已测绘</div><p>起伏的半固态丘陵，异构体活动中等，多处自然裂隙可观察中层。</p></div>
+    <div class="region" style="--lv:#d4b06a"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwyo4a5y" alt="S-3 静水原"></div><div class="s-code">S-3</div><h3>静水原</h3><div class="st">限入</div><p>凹陷处积聚半透明紫色的「以太湖」，温热、水位异常波动。异构体活动频繁。</p></div>
+    <div class="region" style="--lv:#ff8f6b"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwysk92x" alt="S-4 高密度区"></div><div class="s-code">S-4</div><h3>高密度区</h3><div class="st">限制进入</div><p>肉眼可见空气中流动的光纹，久留致非适格者眩晕恶心。1995 年首次内部探索的裂隙入口在此。</p></div>
+    <div class="region" style="--lv:#ff6b8a"><div class="img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wwyx9kfC" alt="S-5 峰顶"></div><div class="s-code">S-5</div><h3>峰顶</h3><div class="st">禁入</div><p>海拔约 1200 米的最高点。登顶者报告「能听到声音」——声源无法定位。</p></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">表面总览地图</h3>
+  <div class="map-wrap">
+    <svg id="smap" viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="map-detail" id="mapDetail"></div>
+  </div>
+  <div class="map-legend">
+    <span><i style="background:#8a9fd4"></i>S-0 边缘带</span>
+    <span><i style="background:#9d7bff"></i>S-1 渡口区</span>
+    <span><i style="background:#b78aff"></i>S-2 低洼地</span>
+    <span><i style="background:#d4b06a"></i>S-3 静水原</span>
+    <span><i style="background:#ff8f6b"></i>S-4 高密度区</span>
+    <span><i style="background:#ff6b8a"></i>S-5 峰顶</span>
+    <span><i style="background:var(--gold);box-shadow:0 0 6px var(--gold)"></i>定居点</span>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">通行许可</h3>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>区域</th><th>准入规则</th></tr></thead><tbody>
+  <tr><td>S-0 ~ S-2</td><td>持证人员自由活动。</td></tr>
+  <tr><td>S-3</td><td>限制进入区，需 IAIS / 各国基地签发的额外审批。</td></tr>
+  <tr><td>S-4 及以上</td><td>禁入，除非 AEC 授权探索行动。</td></tr>
+  <tr><td>中层</td><td>仅 IAIS 授权探索行动可进入，个人不得擅入中层裂隙；深层入口全部封控。</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">主要路线</h3>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>路线</th><th>步行时间</th><th>说明</th></tr></thead><tbody>
+  <tr><td>渡口镇 ⇄ 滞光公寓</td><td>约 15 分钟</td><td>最常走路线，IAIS 通勤车每日 6 班。</td></tr>
+  <tr><td>渡口镇 ⇄ 各国基地区</td><td>约 25 分钟</td><td>需绕行围墙。</td></tr>
+  <tr><td>渡口镇 ⇄ 脊线营地</td><td>约 45 分钟</td><td>进入 S-2 后路况变差，建议结伴，异构体偶发。</td></tr>
+  <tr><td>脊线营地 ⇄ 静水哨站</td><td>约 60 分钟</td><td>进入 S-3 前最后一段路，需 S-3 通行许可，异构体频繁。</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">探索配置建议</h3>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>区域</th><th>建议配置</th><th>注意事项</th></tr></thead><tbody>
+  <tr><td>S-0 / S-1</td><td>单人可行</td><td>日常级异常，无需特殊装备。渡口镇微尘级由 SPD 处理。</td></tr>
+  <tr><td>S-2</td><td>3~5 人小队</td><td>建议携带以太密度仪与基础结晶武装，脊线营地补给。</td></tr>
+  <tr><td>S-3</td><td>正式探索小队 + S-3 许可</td><td>镇压级可能出现。需生命系适格者、结晶武装、通讯信标；非适格者停留超 48 小时出现症状。</td></tr>
+  <tr><td>S-4</td><td>AEC 级队伍 + 全面装备</td><td>必须有撤退方案（空间锚 / 力场壁垒）。</td></tr>
+  <tr><td>S-5</td><td>禁入</td><td>除 AEC 特殊授权外禁止前往。</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">定居点网络</h3>
+  <div class="settle-grid">
+    <div class="settle"><span class="p-code">P-0</span><h3>渡口镇</h3><div class="pop">约 2000 人 · S-1</div><p>最大定居点，商业与行政中心，物资和人员的集散地。酒馆「锚」每月一次的议会在此召开。</p></div>
+    <div class="settle"><span class="p-code">P-1</span><h3>滞光公寓</h3><div class="pop">约 30 人 · S-0/S-1 交界</div><p>原 AERI 前沿观测站改建的小型居住点，以太觉醒概率异常地高。顶层住着一位从不露面的「说话的人」。</p></div>
+    <div class="settle"><span class="p-code">P-2</span><h3>脊线营地</h3><div class="pop">约 150 人 · S-2</div><p>自由探索者基地，向 S-3 及更深出发的起点，不受任何单一势力管辖。</p></div>
+    <div class="settle"><span class="p-code">P-3</span><h3>研究基地区</h3><div class="pop">约 800 人 · S-1</div><p>七国研究基地的集合区，各自独立、彼此竞争，共享渡口设施。</p></div>
+    <div class="settle"><span class="p-code">P-4</span><h3>汇流聚落</h3><div class="pop">约 80 人 · S-2 深处</div><p>汇流组织的非官方聚落，适格者自发建立，不受官方管辖。</p></div>
+    <div class="settle"><span class="p-code">P-5</span><h3>静水哨站</h3><div class="pop">约 20 人 · S-3 边缘</div><p>IAIS 的观测哨站，科研轮驻，也是进入 S-3 的审批关口。</p></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.8rem;font-size:1rem">异常现象与周期事件</h3>
+  <div class="tri">
+    <div class="card"><h3>A 系列 · 日常级</h3><ul>
+      <li><b>延迟光</b> — 阴影期最后的光比预期多停留 10~15 分钟，偏紫。</li>
+      <li><b>路面软陷</b> — 道路偶发局部变软，行走有下沉感，数秒恢复。</li>
+      <li><b>设备错序</b> — 时钟跳秒，相册出现未拍摄的照片。</li>
+      <li><b>声串扰 / 温漂</b> — 信标串线收到别处消息；局部温度无故下降。</li></ul></div>
+    <div class="card"><h3>B / C 系列 · 深区</h3><ul>
+      <li><b>以太风纹</b> — 肉眼可见的空气光纹，灰紫或金色。</li>
+      <li><b>重力微偏 / 反转</b> — 局部重力偏角乃至完全倒置的「倒置区」。</li>
+      <li><b>以太湖波动</b> — 水位异常波动 ±2 米，波动时湖面发荧光。</li>
+      <li><b>光纹风暴</b> — S-4 光纹极高密度，非适格者 30 分钟内出现症状。</li></ul></div>
+    <div class="card"><h3>周期事件</h3><ul>
+      <li><b>滞夜</b> — 每月满月前后，全表面以太波动爆发约 14 小时。异构体异常活跃，适格者异能可能不受控地自动释放。</li>
+      <li><b>脉冲</b> — 不定期，持续约 3 分钟。全表面异常增强，异构体进入狂暴状态。近年来频率上升。</li></ul></div>
+  </div>
+  <div class="cal-wrap">
+    <div class="cal-head">
+      <h3>事件日历 · 滞夜与脉冲</h3>
+      <div class="cal-nav">
+        <button id="calPrev">‹ 上月</button>
+        <div class="cal-month" id="calMonth"></div>
+        <button id="calNext">下月 ›</button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <span><i class="m-stay"></i>滞夜（满月前后 · 约 14 小时）</span>
+      <span><i class="m-pulse"></i>脉冲（不定期 · 约 3 分钟）</span>
+    </div>
+    <div class="cal-tip" id="calTip">悬停日期查看事件详情。滞夜期间异构体异常活跃，适格者异能可能不受控地自动释放。</div>
+  </div>
+</section>
+<section id="factions" class="reveal">
+  <div class="sec-tag">Chapter Ⅴ · Factions</div>
+  <h2>势力<span class="en">Who Holds the Surface</span></h2>
+  <p class="sec-intro">AM-001 的存在催生了前所未有的组织。它们立场各异、使命不同，围绕探索、研究与定居织成一张复杂的网。</p>
+  <div class="fac-grid">
+    <div class="fac" data-glyph="IAIS"><div class="fk">Official</div><h3>IAIS<span>国际以太研究学会</span></h3>
+      <p>1952 年成立的国际学术组织，1987 年后被指定为 AM-001 的国际共管机构。下设探索兵团（AEC）、定居管理局（ARS）、技术部（ATD）、安保巡逻部（SPD）、医疗部（AMD）五部门。名义上的「政府」——但所有人都知道，它的手伸不了那么长。</p>
+      <div class="quote">「学术派与行政派互相倾轧，决策经常前后矛盾。」</div></div>
+    <div class="fac" data-glyph="VII"><div class="fk">Nations</div><h3>七国研究分部<span>Research Bases</span></h3>
+      <p>条约禁止任何国家对 AM-001 主张领土主权——但这并未阻止各国以「科研」为名划定势力范围。截至 2025 年，表面共有七国基地：AERI 东峦、NAEA 北霜、IFRE 维尔、TPRI 桐谷、RIEA 霜原、SEAC 南洲、KIAS 海甸。明面上隶属 IAIS，实际各自向本国汇报。</p>
+      <div class="quote">「研究优先权、区域影响力、适格者招募——博弈从未停止。」</div></div>
+    <div class="fac" data-glyph="EIC"><div class="fk">Corporate</div><h3>EIC<span>以太工业联合体</span></h3>
+      <p>2015 年成立的跨国企业联合体，垄断 60% 的物资进口，是 AM-001 上最大的非官方雇主。运营采集场、能源转化站与物资站；近年更开始资助绕过官方审批的「独立探索行动」。口碑两极：有人感激它给了工作，有人厌恶它把这里当成矿场。</p>
+      <div class="quote">「薪酬以国际货币和以太结晶双重支付。」</div></div>
+    <div class="fac" data-glyph="⚓"><div class="fk">Civilian</div><h3>定居者议会<span>Settlers' Council</span></h3>
+      <p>没有法律地位，却是唯一真正代表定居者利益的组织。每月在渡口镇酒馆「锚」召开公开会议，任何人都可参加、发言、投票。核心不是「议员」，而是三位被称为「说话的人」的存在——酒馆老板娘、探索者头领，以及滞光公寓顶层那位无人知晓的住户。</p>
+      <div class="quote">「定居者权益优先。」</div></div>
+    <div class="fac" data-glyph="∞"><div class="fk">Believers</div><h3>汇流<span>Confluence</span></h3>
+      <p>非官方的适格者联盟，无统一领导、无固定基地。核心信念：AM-001 是「有意志的存在」，探索不应以征服和研究为出发点，而应以「倾听」和「共鸣」为方式。公开存在，公开活动，只是不服从任何官方框架。</p>
+      <div class="quote">「我们是 AM-001 的客人，不是它的议会成员。」</div></div>
+    <div class="fac" data-glyph="~"><div class="fk">Underground</div><h3>潮汐帮<span>The Tide</span></h3>
+      <p>AM-001 的地下网络——绰号来自它如潮汐般的运作节奏：涨潮时货物与信息从地面涌入渡口，退潮时流向官方渠道到不了的角落。偷渡、走私、黑市、情报，以及为「不想被找到」的人提供藏身处。没有帮主，只有暗号与信任链。</p>
+      <div class="quote">「在码头街市场说对暗号，自然会有人来找你。」</div></div>
+    <div class="fac" data-glyph="→"><div class="fk">Freelance</div><h3>自由探索者<span>Free Explorers</span></h3>
+      <p>不是组织，而是一个人群：不属于任何官方机构的冒险者，以 3~5 人小队接受各方委托。他们从脊线营地出发，走向 S-3 与更深处——最自由，也最脆弱。</p>
+      <div class="quote">「生存权高于所有权。」</div></div>
+  </div>
+  <div class="fg-wrap">
+    <h3>势力关系图</h3>
+    <div class="fg-sub">点击节点或连线查看关系详情。</div>
+    <svg id="fgraph" viewBox="0 0 800 440" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="fg-detail" id="fgDetail">七股势力围绕探索、研究与定居形成了一个微妙的平衡——点击任意一方，看看它和谁走得更近。</div>
+  </div>
+</section>
+<section id="powers" class="reveal">
+  <div class="sec-tag">Chapter Ⅵ · Aptitude</div>
+  <h2>适格者与异能<span class="en">The Apt</span></h2>
+  <p class="sec-intro">长期居住于褶皱点附近的个体，有概率发展出以太交互能力——从初级的被动感知，到高级的主动干涉。但每一次使用，都在透支你自己。</p>
+  <div class="abil-wrap">
+    <div class="abil"><div class="glyph">Ⅰ</div><b>感知阶</b><span>所有适格者的起点。以太视觉、以太听觉、以太触觉、预感——超常感官，无法主动操控以太。</span></div>
+    <div class="abil"><div class="glyph">Ⅱ</div><b>干涉阶</b><span>感知阶的进阶，可主动操控以太，即「异能」。有效范围与以太密度正相关；单次持续使用不超过 15 分钟。</span></div>
+    <div class="abil"><div class="glyph">Ⅲ</div><b>共鸣阶</b><span>最高阶段，可与以太深度共鸣。无法后天习得，仅存在于传说与极少数长住者的传闻中。</span></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin-bottom:1.4rem;font-size:1rem">六系干涉</h3>
+  <div class="tri">
+    <div class="card"><h3>火与力</h3><ul><li><b>热力系</b> — 操控分子运动：点火、冻结、热感屏障。</li><li><b>动力系</b> — 定向力场：念力移物、冲击波、力场屏障。</li></ul></div>
+    <div class="card"><h3>形与空</h3><ul><li><b>形态系</b> — 改变物质结构：塑形、固化、修复。</li><li><b>空间系</b> — 扭曲空间：瞬移、空间折叠。极稀有，需特殊审批。</li></ul></div>
+    <div class="card"><h3>生与心</h3><ul><li><b>生命系</b> — 影响生命体：加速愈合、感知生命体征。</li><li><b>精神系</b> — 连接意识：感知情绪、传递信息、感知共享。</li></ul></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">侵蚀值 · EROSION — 异能的代价</h3>
+  <div class="er-scale">
+    <div class="er-seg e1"><div class="rng">0 – 30</div><p>初期 · 偶发头痛耳鸣，基本不影响生活</p></div>
+    <div class="er-seg e2"><div class="rng">31 – 60</div><p>中期 · 感知不稳、异能偶失控，需定期净化</p></div>
+    <div class="er-seg e3"><div class="rng">61 – 100</div><p>后期 · 结晶化征兆，不可完全恢复</p></div>
+  </div>
+  <div class="er-demo">
+    <h3>侵蚀模拟 · EROSION SIMULATOR</h3>
+    <div class="er-bar"><div class="er-fill" id="erFill"></div></div>
+    <div class="er-readout">
+      <div class="er-val" id="erVal">12</div>
+      <div class="er-stage" id="erStage">初期 · 偶发头痛耳鸣</div>
+    </div>
+    <div class="er-log" id="erLog">你在 AM-001 上已居住三个月。侵蚀值目前处于安全范围。</div>
+    <div class="er-btns">
+      <button class="er-btn" id="erUse">◈ 使用一次异能</button>
+      <button class="er-btn" id="erPurge">✦ 以太净化（-15）</button>
+      <button class="er-btn warn" id="erTouch">⚠ 接触异构体（+18~30）</button>
+      <button class="er-btn warn" id="erReset">↺ 重新开始</button>
+    </div>
+  </div>
+</section>
+<section id="bestiary" class="reveal">
+  <div class="sec-tag">Chapter Ⅶ · Threats</div>
+  <h2>异构体图鉴<span class="en">Aether Heteromer</span></h2>
+  <p class="sec-intro">以太凝聚而成的半自主异常实体——像 Aetheris 一样凝聚，却表现出类生物行为。密度越高的区域，它们越多、越大、越强。汇流认为它们是 AM-001 的「免疫反应」；官方称之为「异常凝聚体」。两种解释至今未解。</p>
+  <div class="beast-list">
+    <div class="beast with-art" style="--lv:#8a9fd4"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wABgUKY8" alt="游光"></div><div class="lv"><div class="n">微尘级</div><div class="d">MOTES</div></div><div><h3>游光</h3><p>漂浮的光点群，无攻击性。夜间大量出现时汇成「光河」——无需应对，观赏型。渡口镇偶发的微尘级常被当宠物豢养。</p></div></div>
+    <div class="beast with-art" style="--lv:#9d7bff"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqLbKka" alt="壳体"></div><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>壳体</h3><p>灰紫半固态外壳包裹核心的近战型，缓慢巡游，遇扰冲撞。<b>应对</b>：热力系高温可脆化外壳，暴露核心后以 ECW-2 点射。</p></div></div>
+    <div class="beast with-art" style="--lv:#9d7bff"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAB87bWi" alt="裂声"></div><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>裂声</h3><p>无形体，以声波攻击，通过模仿人声吸引猎物——深夜营地外传来的呼救声，多半不是人。<b>应对</b>：以太听觉可辨破绽（拟声无呼吸起伏），感知共享锁定波源后远距驱散。</p></div></div>
+    <div class="beast" style="--lv:#9d7bff"><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>沉钵</h3><p>形似倒扣石钵，倒悬于以太湖浅滩与裂隙边缘。半径十余米内温度骤降、凝出白雾，电子设备靠近即失灵。<b>应对</b>：钵口朝上时最脆弱——动力系远距掀翻后集中攻击钵底，切勿近战。</p></div></div>
+    <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wABcnaT7" alt="织网"></div><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>织网</h3><p>释放以太丝线困住猎物并缓慢吸取以太，丝线在低光下泛着微弱紫晕。<b>应对</b>：入口前抛掷结晶碎片探路；被缠住时停止挣扎——挣扎只会让丝线收得更紧，用热力系灼断。</p></div></div>
+    <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqHdmv6" alt="镜像"></div><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>镜像</h3><p>拟态为人类或建筑外形，极难辨别——队伍里「话变少的那个队友」、地图上「昨晚不在这栋楼」的建筑，都可能是它。<b>应对</b>：被识破的瞬间它会转为攻击形态。确认疑似目标时保持距离，用预感阶反复试探。</p></div></div>
+    <div class="beast" style="--lv:#d4b06a"><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>缄默</h3><p>以太湖上空的「无声领域」：直径约五十米内一切声音被吞噬，进入者先失聪、后恐慌、再出现幻觉。无形体，仅有空气折射出的微光轮廓。<b>应对</b>：精神系适格者稳定心智并定位轮廓，热力系高热脉冲驱散——切勿鸣枪，声波会激怒它。</p></div></div>
+    <div class="beast" style="--lv:#d4b06a"><div class="lv"><div class="n">镇压级</div><div class="d">UNCERTAIN</div></div><div><h3>灰鲸</h3><p>S-4 深处缓慢巡游的大型实体，长约二十米，体表如燃尽的灰烬。不主动攻击，但路径上以太浓度会短暂飙升——靠近即灼伤。汇流称其为「信使」，认为它在倾听 AM-001；AEC 记录为「高危移动异常」。<b>应对守则</b>：让路。仅此一条。</p></div></div>
+    <div class="beast with-art" style="--lv:#ff6b8a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqDwzOn" alt="潮母"></div><div class="lv"><div class="n">灾变级</div><div class="d">CALAMITY</div></div><div><h3>潮母</h3><p>中层记录的最大异构体，直径约 30 米，会「分娩」游弋级异构体。目前仅有 AEC 留下过应对记录——且付出了惨重代价。</p></div></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">形成条件与争议</h3>
+  <div class="hypo">
+    <div><b>密度正相关</b><p>以太密度越高的区域，异构体越多、越大、越强。</p></div>
+    <div><b>波动放大</b><p>滞夜与脉冲期间，异构体活动急剧增强。</p></div>
+    <div><b>人为惊醒</b><p>EIC 的结晶采集等人为以太干涉，有时会「惊醒」休眠中的个体。</p></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">区域危险等级</h3>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>等级</th><th>分类</th><th>说明</th></tr></thead><tbody>
+  <tr><td>Ⅰ</td><td>日常级</td><td>A 系列异常、微尘级异构体。单人可应对，定居者日常。</td></tr>
+  <tr><td>Ⅱ</td><td>注意级</td><td>滞夜和脉冲期间、游弋级异构体。需 SPD 或探索小队应对。</td></tr>
+  <tr><td>Ⅲ</td><td>限制级</td><td>S-3 以上 C 系列异常、镇压级异构体、中层裂隙。需 AEC 或 SPD 大规模行动。</td></tr>
+  <tr><td>Ⅳ</td><td>未知</td><td>灾变级异构体。无标准应对方案。</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">掉落与讨伐悬赏</h3>
+  <p class="sec-intro">异构体被击败后弥散回归以太态，但「核心」通常残留以太结晶碎片——这是讨伐的主要收益来源。SPD 与各国基地定期发布悬赏，以结晶和国际货币双重支付。</p>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>等级</th><th>掉落物</th><th>赏金（国际货币）</th><th>备注</th></tr></thead><tbody>
+  <tr><td>微尘级</td><td>低纯度碎片 1~5 克，偶尔无掉落</td><td>100 ~ 300</td><td>渡口镇周边清理，适合新人练手。</td></tr>
+  <tr><td>游弋级</td><td>低纯度碎片 5~30 克，偶有中纯度</td><td>500 ~ 1500</td><td>S-2 驱离，需组队。稳定的小队收入来源。</td></tr>
+  <tr><td>镇压级</td><td>中纯度结晶 50~200 克，偶有高纯度碎片</td><td>5000 ~ 15000</td><td>S-3 边缘，需正式小队，AEC / 各国发布。足以支撑小队数月开销。</td></tr>
+  <tr><td>灾变级</td><td>高纯度结晶 100 克+</td><td>20000+（理论）</td><td>几乎无人接单，仅 AEC 大规模行动。理论巨额收益，但几乎无人能活着带回。</td></tr>
+  <tr><td>沉钵</td><td>中纯度碎片 20~60 克</td><td>1200 ~ 2000</td><td>以太湖浅滩与裂隙边缘，动力系小队可稳定处理。</td></tr>
+  <tr><td>缄默</td><td>高纯度碎片 10~30 克</td><td>8000 ~ 12000</td><td>需精神系适格者随队；S-3 以太湖上空。</td></tr>
+  <tr><td>灰鲸</td><td>无（从未被讨伐）</td><td>未定级</td><td>遭遇守则：让路。IAIS 明令禁止主动接近。</td></tr>
+  </tbody></table></div>
+</section>
+<section id="crystal" class="reveal">
+  <div class="sec-tag">Chapter Ⅷ · Economy</div>
+  <h2>结晶与科技<span class="en">Crystal & Technology</span></h2>
+  <p class="sec-intro">以太结晶：高密度下自然析出的半透明紫色矿石，是一切以太科技的能量来源，也是定居者间的非官方硬通货。消耗后不可再生——除非深入更危险的区域。</p>
+  <div class="tri">
+    <div class="card"><h3>结晶分级</h3><ul>
+      <li><b>低纯度</b> · 灰紫 — 200~500 货币/克，日常供电，码头街市场常见。</li>
+      <li><b>中纯度</b> · 亮紫 — 1000~3000 货币/克，驱动 ECW 与驱动器，S-2/S-3 采集。</li>
+      <li><b>高纯度</b> · 半透明深紫 — 黑市价不固定，极稀有，S-4 以上采集，潮汐帮主导交易。</li></ul></div>
+    <div class="card"><h3>以太结晶武装 ECW</h3><ul>
+      <li><b>ECW-1「短剑」</b> · 近战 — 能量灌注刀刃，可切割异构体以太结构。</li>
+      <li><b>ECW-2「弩箭」</b> · 远程 — 结晶能量弹，射程约 50 米，探索小队标配。</li>
+      <li><b>ECW-3「壁垒」</b> · 防御 — 生成约 2 米宽以太屏障，持续 30 秒。</li>
+      <li><b>ECW-4「脉冲」</b> · 特种 — 一次性范围冲击波，ATD 限量生产。</li></ul></div>
+    <div class="card"><h3>以太科技</h3><ul>
+      <li><b>稳定涂层</b> — 第四代。抵御日常侵蚀，长期驻留的基础。</li>
+      <li><b>结晶驱动器</b> — 第三代。结晶转电能，效率约 35%。</li>
+      <li><b>以太信标</b> — 定居点间唯一日常通讯手段，偶尔串线。</li>
+      <li><b>以太净化</b> — 加速侵蚀初期消退；后期不可逆损伤无解。</li>
+      <li><b>感知增幅器</b> — 佩戴者短暂获得感知阶能力约 30 分钟。</li></ul></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">获取途径与参考物价</h3>
+  <div class="hypo">
+    <div><b>EIC 采集场</b><p>S-1 / S-2，有工卡的采集工可领取配额。</p></div>
+    <div><b>异构体讨伐</b><p>击败异构体后核心残留结晶碎片。</p></div>
+    <div><b>市场与黑市</b><p>低/中纯度可在码头街市场自由交易，高纯度走潮汐帮渠道，价格波动大。</p></div>
+  </div>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>物品</th><th>参考价</th></tr></thead><tbody>
+  <tr><td>1 周口粮（基础）</td><td>约 200 国际货币</td></tr>
+  <tr><td>低纯度结晶（1 克）</td><td>200 ~ 500 国际货币</td></tr>
+  <tr><td>中纯度结晶（1 克）</td><td>1000 ~ 3000 国际货币</td></tr>
+  <tr><td>ECW-2 弩箭标准弹匣（10 发）</td><td>约 500 国际货币（含结晶）</td></tr>
+  <tr><td>以太密度仪（手持）</td><td>约 2000 国际货币（组织配发）</td></tr>
+  <tr><td>感知增幅器（单次使用）</td><td>约 1500 国际货币</td></tr>
+  <tr><td>AMD 以太净化处理（初期）</td><td>约 800 国际货币 / 次</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">物资与经济</h3>
+  <p class="sec-intro">AM-001 上不生产物资，一切通过渡口运入。EIC 垄断 60% 物资进口，定价权在它手中——定居者不满但无可奈何。码头街市场交易地面私货与手工艺品，也是潮汐帮的活动中心；通信社按分钟收费。薪酬用国际货币，定居者间则以结晶碎片为非官方硬通货。</p>
+</section>
+<section id="gloss" class="reveal">
+  <div class="sec-tag">Appendix · Glossary</div>
+  <h2>术语速查<span class="en">Lexicon</span></h2>
+  <div class="gloss" style="margin-top:2.5rem">
+    <div class="gl"><b>AM-001</b><p>巨构体的编号称呼，故事的舞台。</p></div>
+    <div class="gl"><b>P-0 ~ P-5</b><p>定居点编号：渡口镇 / 滞光公寓 / 脊线营地 / 研究基地区 / 汇流聚落 / 静水哨站。</p></div>
+    <div class="gl"><b>S-0 ~ S-5</b><p>区域危险度分级——数字越大越深入，以太越浓，越危险。</p></div>
+    <div class="gl"><b>ECW</b><p>以太结晶武装（Ether Crystal Weapon）。</p></div>
+    <div class="gl"><b>褶皱 Fold</b><p>以太流的稳定滞留区，异常现象与能力觉醒的温床。</p></div>
+    <div class="gl"><b>异构体</b><p>以太凝聚的异常实体。分级：微尘 / 游弋 / 镇压 / 灾变。</p></div>
+    <div class="gl"><b>侵蚀值</b><p>使用异能与接触异构体的累积代价，终局是结晶化。</p></div>
+    <div class="gl"><b>滞夜 / 脉冲</b><p>周期性全表面以太波动事件，异构体狂暴之时。</p></div>
+  </div>
+</section>
 <footer>
   <div class="fl">ÆTHERIS</div>
   <p>探索、成长与代价 —— 每一次使用异能，都在透支你自己。</p>
   <p style="margin-top:.6rem;opacity:.5">World Codex · 共栖纪元 38 年</p>
 </footer>
-<script src="js/main.js"></script>
+<script>
+// progressive enhancement flag
+if (typeof document!=='undefined') document.documentElement.classList.add('js');
+
+// svg namespace (shared)
+const NS='http://www.w3.org/2000/svg';
+
+// aether particles
+const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
+let W,H,ps=[];
+function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight}
+resize();addEventListener('resize',resize);
+for(let i=0;i<90;i++)ps.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.8+.4,
+  vx:(Math.random()-.5)*.25,vy:-Math.random()*.35-.05,o:Math.random()*.5+.1,ph:Math.random()*6.28});
+(function tick(){ctx.clearRect(0,0,W,H);
+  for(const p of ps){p.x+=p.vx;p.y+=p.vy;p.ph+=.02;
+    if(p.y<-10){p.y=H+10;p.x=Math.random()*W}
+    if(p.x<-10)p.x=W+10;if(p.x>W+10)p.x=-10;
+    const a=p.o*(.6+.4*Math.sin(p.ph));
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.28);
+    ctx.fillStyle=`rgba(180,150,255,${a})`;
+    ctx.shadowColor='rgba(157,123,255,.9)';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;}
+  requestAnimationFrame(tick)})();
+
+// reading progress
+const bar=document.getElementById('progress');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+
+if (document.getElementById('pdetail')) {
+  // clickable profile map
+  const PD=[
+   {t:'表面层 · SURFACE',s:'已定居 · S-0 ~ S-5',lv:'#9d7bff',p:'约 180 平方公里的可居住外壳，按以太密度分为六级。人类的一切生活、纷争与探索都发生在这里。',rows:[['分区','S-0 边缘带 → S-5 峰顶，越深入以太越浓'],['定居点','P-0 渡口镇至 P-5 静水哨站共 6 处'],['通行','S-0~S-2 持证自由；S-3 需审批；S-4+ 禁入'],['威胁','区域危险等级 Ⅰ ~ Ⅲ']]},
+   {t:'中层 · MID',s:'AEC 授权探索区',lv:'#d4b06a',p:'需 AEC 授权方可进入的探索区域。镇压级异构体的领域，多处裂隙连接更深处的空间。潮母——已知最大的异构体——栖息于此。',rows:[['状态','仅 IAIS 授权探索行动可进入'],['已知威胁','镇压级异构体、潮母（灾变级）'],['记录','1995 年首次内部探索，裂隙入口位于 S-4'],['规则','个人不得擅自进入中层裂隙']]},
+   {t:'深层 · DEEP',s:'未知 · 全部封控',lv:'#ff6b8a',p:'无人生还记录。所有已知入口均已封控。',rows:[['状态','全部入口封控'],['记录','无'],['目击','无'],['备注','唯一确定的事实是：没有人回来过']]},
+   {t:'核心 · CORE',s:'观察记录：无',lv:'var(--glow)',p:'如果深层是未知，那么核心就是未知中的未知。连「它是否存在」都只是推测。信号假说的支持者认为，那道人类尚无法理解的「声音」正是从这里发出。',rows:[['状态','纯理论推测'],['证据','无'],['假说','积蓄 / 生长 / 信号']]}
+  ];
+  const pdBox=document.getElementById('pdetail');
+  function renderPD(i){const d=PD[i];pdBox.innerHTML=`<h3 style="--lv:${d.lv};color:${d.lv==='var(--glow)'?'var(--glow)':d.lv}">${d.t}</h3><div class="pd-status" style="--lv:${d.lv};color:${d.lv==='var(--glow)'?'var(--gold)':d.lv};border-color:${d.lv==='var(--glow)'?'rgba(212,176,106,.4)':d.lv}">${d.s}</div><p>${d.p}</p>`+d.rows.map(r=>`<div class="pd-row"><b>${r[0]}</b>　${r[1]}</div>`).join('');
+  document.querySelectorAll('.pzone').forEach(z=>z.classList.toggle('active',z.dataset.z==i));}
+  renderPD(0);
+  document.querySelectorAll('.pzone').forEach(z=>z.addEventListener('click',()=>renderPD(+z.dataset.z)));
+
+}
+if (document.getElementById('erFill')) {
+  // erosion simulator
+  let er=12;
+  const erF=document.getElementById('erFill'),erV=document.getElementById('erVal'),erS=document.getElementById('erStage'),erL=document.getElementById('erLog');
+  const LOGS={safe:'侵蚀值目前处于安全范围。',mid:'AMD 建议：尽快进行一次以太净化处理。',high:'⚠ 指端已出现结晶化征兆。不可逆损伤正在累积。',dead:'■ 侵蚀值已达上限。这位探索者的故事到此为止。'};
+  function setER(n,note){er=Math.max(0,Math.min(100,n));erF.style.width=er+'%';erV.textContent=Math.round(er);
+   let stage,col,bg;
+   if(er<=30){stage='初期 · 偶发头痛耳鸣';col='var(--aether)';bg='linear-gradient(90deg,var(--aether),var(--aether-deep))';}
+   else if(er<=60){stage='中期 · 需定期净化';col='var(--gold)';bg='linear-gradient(90deg,var(--gold),#8a6a2a)';}
+   else{stage='后期 · 结晶化征兆';col='var(--danger)';bg='linear-gradient(90deg,var(--danger),#a03050)';}
+   erS.textContent=stage;erS.style.color=col;erS.style.borderColor=col;erF.style.background=bg;erV.style.color=col;
+   const prev=erL.dataset.prev||'';erL.dataset.prev=note||LOGS.safe;erL.textContent=note||LOGS[er<=30?'safe':er<=60?'mid':er<100?'high':'dead'];}
+  setER(12);
+  document.getElementById('erUse').onclick=()=>{const d=Math.round(8+Math.random()*7);setER(er+d,`◈ 异能使用 -${d}。干涉阶单次持续不超过 15 分钟——每一次都在透支你自己。`)};
+  document.getElementById('erPurge').onclick=()=>{if(er<8){erL.textContent='侵蚀值过低，净化处理没有意义。';return}setER(er-15,'✦ AMD 以太净化完成（-15，约 800 国际货币/次）。初期可加速消退，后期无解。')};
+  document.getElementById('erTouch').onclick=()=>{const d=Math.round(18+Math.random()*12);setER(er+d,`⚠ 与异构体接触 +${d}。以太灼伤与侵蚀同步累积——下次带齐 ECW 再进 S-2。`)};
+  document.getElementById('erReset').onclick=()=>{setER(12,'你在 AM-001 上已居住三个月。侵蚀值目前处于安全范围。')};
+
+}
+if (document.getElementById('calGrid')) {
+  // ---------- event calendar ----------
+  // 滞夜 = 满月前后各1天；以 2000-01-06 18:14 新月为基准，朔望月 29.53059 天
+  const SYN=29.53059, NM0=Date.UTC(2000,0,6,18,14);
+  function fullMoons(y,m){const out=[];const first=Date.UTC(y,m,1),last=Date.UTC(y,m+1,1);
+   let t=NM0;const step=SYN*864e5;let base=NM0+Math.floor((first-NM0)/step)*step;
+   for(let t0=base-2*step;t0<last+2*step;t0+=step){const fm=t0+14.765*864e5;if(fm>=first&&fm<last)out.push(new Date(fm))}
+   return out}
+  function pulses(y,m){const n=((y*12+m)*2654435761>>>0)%3;const out=[];for(let i=0;i<n;i++){const h=((y*12+m)*40503+i*915488749>>>0)%28;out.push(1+h)}return out}
+  let cy=2025,cm=9; // 2025-10 起始
+  const WD=['日','一','二','三','四','五','六'];
+  function drawCal(){const grid=document.getElementById('calGrid'),label=document.getElementById('calMonth');
+   label.textContent=`${cy} 年 ${cm+1} 月`;
+   const first=new Date(cy,cm,1),days=new Date(cy,cm+1,0).getDate(),shift=first.getDay();
+   const stays=fullMoons(cy,cm).flatMap(d=>[d.getUTCDate()-1,d.getUTCDate(),d.getUTCDate()+1]);
+   const pls=pulses(cy,cm);
+   let html=WD.map(w=>`<div class="cal-wd">${w}</div>`).join('');
+   for(let i=0;i<shift;i++)html+='<div class="cal-day out"></div>';
+   for(let d=1;d<=days;d++){const isStay=stays.includes(d),isPl=pls.includes(d);
+    const marks=(isStay?'<i class="m-stay"></i>':'')+(isPl?'<i class="m-pulse"></i>':'');
+    html+=`<div class="cal-day" data-d="${d}" data-s="${isStay?1:0}" data-p="${isPl?1:0}">${d}<div class="mk">${marks}</div></div>`}
+   grid.innerHTML=html;
+   grid.querySelectorAll('.cal-day[data-d]').forEach(el=>el.addEventListener('mouseenter',()=>{
+    const d=el.dataset.d,s=el.dataset.s==='1',p=el.dataset.p==='1';
+    document.getElementById('calTip').textContent=(s||p)?`${cm+1} 月 ${d} 日 — `+(s?'【滞夜】满月前后，全表面以太波动爆发约 14 小时，异构体异常活跃，适格者异能可能不受控自动释放。':'')+(s&&p?' ':'')+(p?'【脉冲】不定期全表面异常增强约 3 分钟，异构体狂暴。滞夜期间遭遇脉冲是探索者最恶劣的噩梦。':''):`${cm+1} 月 ${d} 日 — 平静的一天。但 AM-001 上，「平静」从来只是暂时的。`}))}
+  document.getElementById('calPrev').onclick=()=>{cm--;if(cm<0){cm=11;cy--}drawCal()};
+  document.getElementById('calNext').onclick=()=>{cm++;if(cm>11){cm=0;cy++}drawCal()};
+  drawCal();
+
+}
+if (document.getElementById('fgraph')) {
+  // ---------- faction graph ----------
+  const FN=[
+   {id:'iais',n:'IAIS',x:400,y:64,c:'#9d7bff',d:'<b>IAIS</b>　名义上的「政府」，国际以太研究学会。学术派与行政派互相倾轧，决策经常前后矛盾；对各国基地只有名义管辖权。'},
+   {id:'nations',n:'七国基地',x:150,y:180,c:'#8a9fd4',d:'<b>七国研究分部</b>　明面上隶属 IAIS，实际各自向本国汇报。研究优先权与区域影响力的博弈从未停止。'},
+   {id:'eic',n:'EIC',x:650,y:180,c:'#d4b06a',d:'<b>EIC</b>　以太工业联合体。垄断 60% 物资进口，最大非官方雇主；近年资助绕过官方审批的独立探索行动。口碑两极。'},
+   {id:'council',n:'定居者议会',x:250,y:330,c:'#c9b4ff',d:'<b>定居者议会</b>　没有法律地位，却是唯一真正代表定居者利益的组织。核心是三位「说话的人」。'},
+   {id:'confluence',n:'汇流',x:430,y:230,c:'#e8dcff',d:'<b>汇流</b>　适格者联盟。认为 AM-001 是有意志的存在，探索应以倾听与共鸣为方式，不服从任何官方框架。'},
+   {id:'tide',n:'潮汐帮',x:610,y:360,c:'#5b3fd4',d:'<b>潮汐帮</b>　地下网络。偷渡、走私、黑市、情报，以及为「不想被找到」的人提供藏身处。没有帮主，只有暗号与信任链。'},
+   {id:'free',n:'自由探索者',x:390,y:400,c:'#b78aff',d:'<b>自由探索者</b>　不是组织，而是一个人群：3~5 人小队接受各方委托，从脊线营地走向 S-3 与更深处。最自由，也最脆弱。'}];
+  const FE=[
+   ['iais','nations','名义管辖 · 实际博弈','IAIS 对七国基地只有名义管辖权，各国实际各自向本国汇报。'],
+   ['iais','eic','监管 · 摩擦','EIC 的采集与独立探索行动不断触碰 IAIS 的审批红线，但经济依赖让双方保持克制。'],
+   ['iais','council','诉求 · 施压','议会没有法律地位，只能通过每月公开会议向 IAIS 施压，争取定居者权益。'],
+   ['iais','confluence','不服从 · 默许','汇流不服从任何官方框架；IAIS 视其边缘化而未强力取缔。'],
+   ['iais','tide','猫鼠','IAIS 的安保巡逻部（SPD）与潮汐帮的长期猫鼠游戏——抓不完，也灭不绝。'],
+   ['eic','free','雇佣 · 委托','EIC 资助绕过官方审批的「独立探索行动」，自由探索者是主要执行者。'],
+   ['eic','council','物价 · 矛盾','EIC 垄断 60% 物资进口并握有定价权，定居者不满但无可奈何；议会反复抗议收效甚微。'],
+   ['tide','free','情报 · 黑市','在码头街市场说对暗号，自然会有人来找你——潮汐帮是自由探索者情报与违禁装备的重要来源。'],
+   ['confluence','free','同行者','汇流尊重自由探索者的独立，部分成员以个人身份加入探索队，只为离 AM-001 更近一点。']];
+  const svg=document.getElementById('fgraph');
+  function fgInit(){
+   FE.forEach((e,i)=>{const a=FN.find(f=>f.id===e[0]),b=FN.find(f=>f.id===e[1]);
+    const ln=document.createElementNS(NS,'line');ln.setAttribute('x1',a.x);ln.setAttribute('y1',a.y);ln.setAttribute('x2',b.x);ln.setAttribute('y2',b.y);
+    ln.setAttribute('class','fedge');ln.setAttribute('stroke','rgba(157,123,255,.3)');ln.setAttribute('stroke-width','1.4');
+    ln.addEventListener('click',()=>{document.getElementById('fgDetail').innerHTML=`<b>${a.n} ⇄ ${b.n}</b>　${e[3]}`});
+    const t=document.createElementNS(NS,'text');t.setAttribute('x',(a.x+b.x)/2);t.setAttribute('y',(a.y+b.y)/2-6);
+    t.setAttribute('text-anchor','middle');t.setAttribute('font-size','11');t.setAttribute('fill','rgba(201,180,255,.55)');t.textContent=e[2];
+    svg.appendChild(ln);svg.appendChild(t)});
+   FN.forEach(f=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','fnode');
+    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',f.x);c.setAttribute('cy',f.y);c.setAttribute('r',f.n.length>3?34:30);
+    c.setAttribute('fill','rgba(13,11,26,.9)');c.setAttribute('stroke',f.c);c.setAttribute('stroke-width','2');
+    const t=document.createElementNS(NS,'text');t.setAttribute('x',f.x);t.setAttribute('y',f.y+5);t.setAttribute('text-anchor','middle');
+    t.setAttribute('font-size','13');t.setAttribute('fill','#e8dcff');t.textContent=f.n;
+    g.appendChild(c);g.appendChild(t);
+    g.addEventListener('click',()=>{document.querySelectorAll('.fnode').forEach(n=>n.classList.remove('active'));g.classList.add('active');document.getElementById('fgDetail').innerHTML=f.d});
+    svg.appendChild(g)})}
+  fgInit();
+
+}
+if (document.getElementById('smap')) {
+  // ---------- surface overview map ----------
+  const MZ=[
+   {id:'S-0',lv:'#8a9fd4',rx:432,ry:222,t:[452,262],n:'边缘带',st:'已定居',p:'最外侧约一公里宽的环形带，以太密度最低，异常与异构体极少，是定居者的主要居住区。',r:[['通行','持证人员自由活动'],['配置','单人可行'],['威胁','日常级异常']]},
+   {id:'S-1',lv:'#9d7bff',rx:362,ry:186,t:[452,262],n:'渡口区',st:'已开发',p:'港口码头与物资中转设施所在，AM-001 与外部世界的交通枢纽，异构体偶发。',r:[['通行','持证自由活动'],['配置','单人可行'],['定居点','P-0 渡口镇 · P-3 研究基地区']]},
+   {id:'S-2',lv:'#b78aff',rx:292,ry:150,t:[452,262],n:'低洼地',st:'已测绘',p:'起伏的半固态丘陵，异构体活动中等，多处自然裂隙可观察中层。',r:[['通行','持证自由活动'],['配置','3~5 人小队'],['定居点','P-2 脊线营地 · P-4 汇流聚落']]},
+   {id:'S-3',lv:'#d4b06a',rx:222,ry:114,t:[452,262],n:'静水原',st:'限入',p:'凹陷处积聚半透明紫色的「以太湖」，温热、水位异常波动。异构体活动频繁。',r:[['通行','需 S-3 额外审批'],['配置','正式小队 + 许可'],['定居点','P-5 静水哨站']]},
+   {id:'S-4',lv:'#ff8f6b',rx:152,ry:78,t:[452,262],n:'高密度区',st:'限制进入',p:'肉眼可见空气中流动的光纹，久留致非适格者眩晕恶心。1995 年首次内部探索的裂隙入口在此。',r:[['通行','禁入，除 AEC 授权'],['配置','AEC 级队伍 + 全面装备'],['威胁','区域危险等级 Ⅲ+']]},
+   {id:'S-5',lv:'#ff6b8a',rx:82,ry:42,t:[452,262],n:'峰顶',st:'禁入',p:'海拔约 1200 米的最高点。登顶者报告「能听到声音」——声源无法定位。',r:[['通行','禁入'],['配置','仅 AEC 特殊授权'],['传闻','「能听到声音」']]}];
+  const MN=[
+   {id:'P-0',x:612,y:398,n:'P-0 渡口镇',pop:'约 2000 人 · S-1',p:'最大定居点，商业与行政中心，物资和人员的集散地。酒馆「锚」每月一次的议会在此召开。',r:[['区域','S-1 渡口区'],['角色','商业与行政中心']]},
+   {id:'P-1',x:704,y:312,n:'P-1 滞光公寓',pop:'约 30 人 · S-0/S-1 交界',p:'原 AERI 前沿观测站改建的小型居住点，以太觉醒概率异常地高。顶层住着一位从不露面的「说话的人」。',r:[['区域','S-0/S-1 交界'],['角色','原 AERI 观测站']]},
+   {id:'P-2',x:286,y:362,n:'P-2 脊线营地',pop:'约 150 人 · S-2',p:'自由探索者基地，向 S-3 及更深出发的起点，不受任何单一势力管辖。',r:[['区域','S-2 低洼地'],['角色','探索者基地']]},
+   {id:'P-3',x:560,y:196,n:'P-3 研究基地区',pop:'约 800 人 · S-1',p:'七国研究基地的集合区，各自独立、彼此竞争，共享渡口设施。',r:[['区域','S-1 渡口区'],['角色','七国基地集合区']]},
+   {id:'P-4',x:258,y:252,n:'P-4 汇流聚落',pop:'约 80 人 · S-2 深处',p:'汇流组织的非官方聚落，适格者自发建立，不受官方管辖。',r:[['区域','S-2 深处'],['角色','汇流聚落']]},
+   {id:'P-5',x:386,y:268,n:'P-5 静水哨站',pop:'约 20 人 · S-3 边缘',p:'IAIS 的观测哨站，科研轮驻，也是进入 S-3 的审批关口。',r:[['区域','S-3 边缘'],['角色','观测哨站 + 审批关口']]}];
+  const smap=document.getElementById('smap');
+  function mapInit(){
+   MZ.forEach(z=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','mzone');g.dataset.id=z.id;
+    const e=document.createElementNS(NS,'ellipse');e.setAttribute('cx',452);e.setAttribute('cy',262);
+    e.setAttribute('rx',z.rx);e.setAttribute('ry',z.ry);e.setAttribute('fill',z.lv);e.setAttribute('fill-opacity','0.07');
+    e.setAttribute('stroke',z.lv);e.setAttribute('stroke-opacity','0.5');
+    const t=document.createElementNS(NS,'text');t.setAttribute('x',452);t.setAttribute('y',262-z.ry+18);
+    t.setAttribute('text-anchor','middle');t.setAttribute('font-size','13');t.setAttribute('fill',z.lv);t.textContent=z.id;
+    g.appendChild(e);g.appendChild(t);
+    g.addEventListener('click',()=>{smap.querySelectorAll('.active').forEach(x=>x.classList.remove('active'));g.classList.add('active');showMD(z)});
+    smap.appendChild(g)});
+   MN.forEach(m=>{const g=document.createElementNS(NS,'g');g.setAttribute('class','mnode');
+    const ring=document.createElementNS(NS,'circle');ring.setAttribute('cx',m.x);ring.setAttribute('cy',m.y);ring.setAttribute('r',10);ring.setAttribute('fill','none');ring.setAttribute('stroke','var(--gold)');ring.setAttribute('stroke-width','1');
+    const dot=document.createElementNS(NS,'circle');dot.setAttribute('class','mdot');dot.setAttribute('cx',m.x);dot.setAttribute('cy',m.y);dot.setAttribute('r',4.5);
+    const t=document.createElementNS(NS,'text');t.setAttribute('x',m.x);t.setAttribute('y',m.y-16);t.setAttribute('text-anchor','middle');t.textContent=m.n;
+    g.appendChild(ring);g.appendChild(dot);g.appendChild(t);
+    g.addEventListener('click',()=>{smap.querySelectorAll('.active').forEach(x=>x.classList.remove('active'));g.classList.add('active');showMD(m)});
+    smap.appendChild(g)});
+   showMD({n:'巨构体 AM-001 · 表面总览',st:'点击区域或定居点查看详情',p:'地图按以太密度由外向内分为六级。越深入，以太越浓；越浓，越危险——但回报也越丰厚。',r:[['面积','约 180 km²'],['海拔','S-5 峰顶约 1200 米'],['状态','以太密度缓慢上升中']]})}
+  function showMD(d){document.getElementById('mapDetail').innerHTML=`<h3>${d.n}</h3><div class="md-tag">${d.st||d.pop}</div><p>${d.p}</p>`+(d.r||[]).map(r=>`<div class="pd-row"><b>${r[0]}</b>　${r[1]}</div>`).join('')}
+  mapInit();
+
+}
+// nav shrink
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('shrunk',scrollY>60));
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---------- nav active state ----------
+(function(){
+  const here=(location.pathname.split('/').pop()||'index.html');
+  const links=document.querySelectorAll('#nav .links a');
+  if(here!=='index.html') return; // subpages keep their static .on
+  links.forEach(a=>{if(a.getAttribute('href').startsWith('index.html#'))a.classList.remove('on')});
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){
+      links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id||a.getAttribute('href')==='index.html#'+e.target.id));
+    }});
+  },{rootMargin:'-35% 0px -55% 0px'});
+  ['ether','history','am001','regions','factions','powers','bestiary','crystal','gloss'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+})();
+</script>
 </body>
 </html>
