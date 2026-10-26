@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结晶与经济 · AETHERIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="veil"></div><div id="grain"></div>
+<canvas id="particles"></canvas>
+<div class="sigil a"></div><div class="sigil b"></div>
+<div id="progress"></div>
+<nav id="nav">
+  <a class="logo" href="index.html"><b>Æ</b>THERIS</a>
+  <div class="links"><a href="index.html#ether">以太</a><a href="index.html#history">观测史</a><a href="index.html#am001">AM-001</a><a href="regions.html">区域与地图</a><a href="factions.html">势力</a><a href="powers.html">异能</a><a href="bestiary.html">异构体</a><a href="economy.html" class="on">结晶经济</a></div>
+</nav>
+<section><div class="sec-tag">Aetheris Codex</div><h2 style="padding-top:2rem">结晶与经济</h2><p class="sec-intro">以太结晶是一切以太科技的能量来源，也是定居者间的非官方硬通货。消耗后不可再生——除非深入更危险的区域。</p></section><section id="crystal" class="reveal">
+  <div class="sec-tag">Chapter Ⅷ · Economy</div>
+  <h2>结晶与科技<span class="en">Crystal & Technology</span></h2>
+  <p class="sec-intro">以太结晶：高密度下自然析出的半透明紫色矿石，是一切以太科技的能量来源，也是定居者间的非官方硬通货。消耗后不可再生——除非深入更危险的区域。</p>
+  <div class="tri">
+    <div class="card"><h3>结晶分级</h3><ul>
+      <li><b>低纯度</b> · 灰紫 — 200~500 货币/克，日常供电，码头街市场常见。</li>
+      <li><b>中纯度</b> · 亮紫 — 1000~3000 货币/克，驱动 ECW 与驱动器，S-2/S-3 采集。</li>
+      <li><b>高纯度</b> · 半透明深紫 — 黑市价不固定，极稀有，S-4 以上采集，潮汐帮主导交易。</li></ul></div>
+    <div class="card"><h3>以太结晶武装 ECW</h3><ul>
+      <li><b>ECW-1「短剑」</b> · 近战 — 能量灌注刀刃，可切割异构体以太结构。</li>
+      <li><b>ECW-2「弩箭」</b> · 远程 — 结晶能量弹，射程约 50 米，探索小队标配。</li>
+      <li><b>ECW-3「壁垒」</b> · 防御 — 生成约 2 米宽以太屏障，持续 30 秒。</li>
+      <li><b>ECW-4「脉冲」</b> · 特种 — 一次性范围冲击波，ATD 限量生产。</li></ul></div>
+    <div class="card"><h3>以太科技</h3><ul>
+      <li><b>稳定涂层</b> — 第四代。抵御日常侵蚀，长期驻留的基础。</li>
+      <li><b>结晶驱动器</b> — 第三代。结晶转电能，效率约 35%。</li>
+      <li><b>以太信标</b> — 定居点间唯一日常通讯手段，偶尔串线。</li>
+      <li><b>以太净化</b> — 加速侵蚀初期消退；后期不可逆损伤无解。</li>
+      <li><b>感知增幅器</b> — 佩戴者短暂获得感知阶能力约 30 分钟。</li></ul></div>
+  </div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">获取途径与参考物价</h3>
+  <div class="hypo">
+    <div><b>EIC 采集场</b><p>S-1 / S-2，有工卡的采集工可领取配额。</p></div>
+    <div><b>异构体讨伐</b><p>击败异构体后核心残留结晶碎片。</p></div>
+    <div><b>市场与黑市</b><p>低/中纯度可在码头街市场自由交易，高纯度走潮汐帮渠道，价格波动大。</p></div>
+  </div>
+  <div class="table-wrap"><table class="rtable"><thead><tr><th>物品</th><th>参考价</th></tr></thead><tbody>
+  <tr><td>1 周口粮（基础）</td><td>约 200 国际货币</td></tr>
+  <tr><td>低纯度结晶（1 克）</td><td>200 ~ 500 国际货币</td></tr>
+  <tr><td>中纯度结晶（1 克）</td><td>1000 ~ 3000 国际货币</td></tr>
+  <tr><td>ECW-2 弩箭标准弹匣（10 发）</td><td>约 500 国际货币（含结晶）</td></tr>
+  <tr><td>以太密度仪（手持）</td><td>约 2000 国际货币（组织配发）</td></tr>
+  <tr><td>感知增幅器（单次使用）</td><td>约 1500 国际货币</td></tr>
+  <tr><td>AMD 以太净化处理（初期）</td><td>约 800 国际货币 / 次</td></tr>
+  </tbody></table></div>
+  <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">物资与经济</h3>
+  <p class="sec-intro">AM-001 上不生产物资，一切通过渡口运入。EIC 垄断 60% 物资进口，定价权在它手中——定居者不满但无可奈何。码头街市场交易地面私货与手工艺品，也是潮汐帮的活动中心；通信社按分钟收费。薪酬用国际货币，定居者间则以结晶碎片为非官方硬通货。</p>
+</section><section id="gloss" class="reveal">
+  <div class="sec-tag">Appendix · Glossary</div>
+  <h2>术语速查<span class="en">Lexicon</span></h2>
+  <div class="gloss" style="margin-top:2.5rem">
+    <div class="gl"><b>AM-001</b><p>巨构体的编号称呼，故事的舞台。</p></div>
+    <div class="gl"><b>P-0 ~ P-5</b><p>定居点编号：渡口镇 / 滞光公寓 / 脊线营地 / 研究基地区 / 汇流聚落 / 静水哨站。</p></div>
+    <div class="gl"><b>S-0 ~ S-5</b><p>区域危险度分级——数字越大越深入，以太越浓，越危险。</p></div>
+    <div class="gl"><b>ECW</b><p>以太结晶武装（Ether Crystal Weapon）。</p></div>
+    <div class="gl"><b>褶皱 Fold</b><p>以太流的稳定滞留区，异常现象与能力觉醒的温床。</p></div>
+    <div class="gl"><b>异构体</b><p>以太凝聚的异常实体。分级：微尘 / 游弋 / 镇压 / 灾变。</p></div>
+    <div class="gl"><b>侵蚀值</b><p>使用异能与接触异构体的累积代价，终局是结晶化。</p></div>
+    <div class="gl"><b>滞夜 / 脉冲</b><p>周期性全表面以太波动事件，异构体狂暴之时。</p></div>
+  </div>
+</section>
+<footer>
+  <div class="fl">ÆTHERIS</div>
+  <p>探索、成长与代价 —— 每一次使用异能，都在透支你自己。</p>
+  <p style="margin-top:.6rem;opacity:.5">World Codex · 共栖纪元 38 年</p>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
