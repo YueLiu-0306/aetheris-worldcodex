@@ -421,6 +421,14 @@ footer p{color:var(--dim);font-size:.8rem;margin-top:1rem;letter-spacing:.15em}
 
 nav .links a.on{color:var(--glow)}
 nav .links a.on::after{width:100%}
+
+.meditate-img{margin:-2.5rem -2.5rem 1.4rem;height:180px;overflow:hidden}
+.meditate-img img{width:100%;height:100%;object-fit:cover}
+.card-img{margin:-2rem -1.8rem 1.2rem;height:150px;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.cal-img{height:64px;aspect-ratio:2/1;overflow:hidden;border:1px solid var(--line)}
+.cal-img img{width:100%;height:100%;object-fit:cover}
+@media(max-width:640px){.meditate-img{height:140px;margin:-1.6rem -1.6rem 1.2rem}.card-img{height:120px;margin:-1.5rem -1.3rem 1rem}.cal-img{display:none}}
 </style>
 </head>
 <body>
@@ -463,6 +471,7 @@ nav .links a.on::after{width:100%}
     </div>
     <div>
       <div class="meditate">
+        <div class="meditate-img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wALmf4wq" alt="Aetheris 显化"></div>
         <h3>显化 · Aetheris</h3>
         <p>当以太凝聚到足够高的密度，便会形成肉眼可见的实体——Aetheris。它时而如星云弥散于天际，时而凝为浮空岛屿，甚至以类人的庞大造物行走于市井之间。形态不可预测，本质至今停留在假说阶段。</p>
       </div>
@@ -598,6 +607,7 @@ nav .links a.on::after{width:100%}
   <div class="cal-wrap">
     <div class="cal-head">
       <h3>事件日历 · 滞夜与脉冲</h3>
+      <div class="cal-img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wALBhOpG" alt="滞夜"></div>
       <div class="cal-nav">
         <button id="calPrev">‹ 上月</button>
         <div class="cal-month" id="calMonth"></div>
@@ -691,11 +701,11 @@ nav .links a.on::after{width:100%}
     <div class="beast with-art" style="--lv:#8a9fd4"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wABgUKY8" alt="游光"></div><div class="lv"><div class="n">微尘级</div><div class="d">MOTES</div></div><div><h3>游光</h3><p>漂浮的光点群，无攻击性。夜间大量出现时汇成「光河」——无需应对，观赏型。渡口镇偶发的微尘级常被当宠物豢养。</p></div></div>
     <div class="beast with-art" style="--lv:#9d7bff"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqLbKka" alt="壳体"></div><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>壳体</h3><p>灰紫半固态外壳包裹核心的近战型，缓慢巡游，遇扰冲撞。<b>应对</b>：热力系高温可脆化外壳，暴露核心后以 ECW-2 点射。</p></div></div>
     <div class="beast with-art" style="--lv:#9d7bff"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAB87bWi" alt="裂声"></div><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>裂声</h3><p>无形体，以声波攻击，通过模仿人声吸引猎物——深夜营地外传来的呼救声，多半不是人。<b>应对</b>：以太听觉可辨破绽（拟声无呼吸起伏），感知共享锁定波源后远距驱散。</p></div></div>
-    <div class="beast" style="--lv:#9d7bff"><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>沉钵</h3><p>形似倒扣石钵，倒悬于以太湖浅滩与裂隙边缘。半径十余米内温度骤降、凝出白雾，电子设备靠近即失灵。<b>应对</b>：钵口朝上时最脆弱——动力系远距掀翻后集中攻击钵底，切勿近战。</p></div></div>
+    <div class="beast with-art" style="--lv:#9d7bff"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAL1eKTD" alt="沉钵"></div><div class="lv"><div class="n">游弋级</div><div class="d">ROAMERS</div></div><div><h3>沉钵</h3><p>形似倒扣石钵，倒悬于以太湖浅滩与裂隙边缘。半径十余米内温度骤降、凝出白雾，电子设备靠近即失灵。<b>应对</b>：钵口朝上时最脆弱——动力系远距掀翻后集中攻击钵底，切勿近战。</p></div></div>
     <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wABcnaT7" alt="织网"></div><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>织网</h3><p>释放以太丝线困住猎物并缓慢吸取以太，丝线在低光下泛着微弱紫晕。<b>应对</b>：入口前抛掷结晶碎片探路；被缠住时停止挣扎——挣扎只会让丝线收得更紧，用热力系灼断。</p></div></div>
     <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqHdmv6" alt="镜像"></div><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>镜像</h3><p>拟态为人类或建筑外形，极难辨别——队伍里「话变少的那个队友」、地图上「昨晚不在这栋楼」的建筑，都可能是它。<b>应对</b>：被识破的瞬间它会转为攻击形态。确认疑似目标时保持距离，用预感阶反复试探。</p></div></div>
-    <div class="beast" style="--lv:#d4b06a"><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>缄默</h3><p>以太湖上空的「无声领域」：直径约五十米内一切声音被吞噬，进入者先失聪、后恐慌、再出现幻觉。无形体，仅有空气折射出的微光轮廓。<b>应对</b>：精神系适格者稳定心智并定位轮廓，热力系高热脉冲驱散——切勿鸣枪，声波会激怒它。</p></div></div>
-    <div class="beast" style="--lv:#d4b06a"><div class="lv"><div class="n">镇压级</div><div class="d">UNCERTAIN</div></div><div><h3>灰鲸</h3><p>S-4 深处缓慢巡游的大型实体，长约二十米，体表如燃尽的灰烬。不主动攻击，但路径上以太浓度会短暂飙升——靠近即灼伤。汇流称其为「信使」，认为它在倾听 AM-001；AEC 记录为「高危移动异常」。<b>应对守则</b>：让路。仅此一条。</p></div></div>
+    <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAL7Lx9D" alt="缄默"></div><div class="lv"><div class="n">镇压级</div><div class="d">WARDENS</div></div><div><h3>缄默</h3><p>以太湖上空的「无声领域」：直径约五十米内一切声音被吞噬，进入者先失聪、后恐慌、再出现幻觉。无形体，仅有空气折射出的微光轮廓。<b>应对</b>：精神系适格者稳定心智并定位轮廓，热力系高热脉冲驱散——切勿鸣枪，声波会激怒它。</p></div></div>
+    <div class="beast with-art" style="--lv:#d4b06a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wALfIiwW" alt="灰鲸"></div><div class="lv"><div class="n">镇压级</div><div class="d">UNCERTAIN</div></div><div><h3>灰鲸</h3><p>S-4 深处缓慢巡游的大型实体，长约二十米，体表如燃尽的灰烬。不主动攻击，但路径上以太浓度会短暂飙升——靠近即灼伤。汇流称其为「信使」，认为它在倾听 AM-001；AEC 记录为「高危移动异常」。<b>应对守则</b>：让路。仅此一条。</p></div></div>
     <div class="beast with-art" style="--lv:#ff6b8a"><div class="bimg"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wAqDwzOn" alt="潮母"></div><div class="lv"><div class="n">灾变级</div><div class="d">CALAMITY</div></div><div><h3>潮母</h3><p>中层记录的最大异构体，直径约 30 米，会「分娩」游弋级异构体。目前仅有 AEC 留下过应对记录——且付出了惨重代价。</p></div></div>
   </div>
   <h3 style="color:var(--gold);letter-spacing:.25em;font-weight:500;margin:3.5rem 0 1.4rem;font-size:1rem">形成条件与争议</h3>
@@ -728,7 +738,7 @@ nav .links a.on::after{width:100%}
   <h2>结晶与科技<span class="en">Crystal & Technology</span></h2>
   <p class="sec-intro">以太结晶：高密度下自然析出的半透明紫色矿石，是一切以太科技的能量来源，也是定居者间的非官方硬通货。消耗后不可再生——除非深入更危险的区域。</p>
   <div class="tri">
-    <div class="card"><h3>结晶分级</h3><ul>
+    <div class="card"><div class="card-img"><img src="https://lingxi.wps.cn/api/aioffice/v1/short_link/3wALuL2ql" alt="以太结晶"></div><h3>结晶分级</h3><ul>
       <li><b>低纯度</b> · 灰紫 — 200~500 货币/克，日常供电，码头街市场常见。</li>
       <li><b>中纯度</b> · 亮紫 — 1000~3000 货币/克，驱动 ECW 与驱动器，S-2/S-3 采集。</li>
       <li><b>高纯度</b> · 半透明深紫 — 黑市价不固定，极稀有，S-4 以上采集，潮汐帮主导交易。</li></ul></div>
