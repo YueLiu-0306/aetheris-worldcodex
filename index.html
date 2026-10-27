@@ -78,7 +78,7 @@ header{min-height:100vh;display:flex;flex-direction:column;justify-content:cente
 h1.hero-title{font-size:clamp(3.5rem,11vw,8.5rem);font-weight:900;letter-spacing:.28em;text-indent:.28em;
   background:linear-gradient(180deg,#fff 0%,var(--crystal) 40%,var(--aether) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin:1.2rem 0 .6rem;opacity:0;animation:rise 1.4s .5s forwards;
+  margin:1.2rem 0 .6rem;
   filter:drop-shadow(0 0 42px rgba(157,123,255,.35))}
 .hero-sub{font-size:clamp(1rem,2.2vw,1.35rem);color:var(--text);letter-spacing:.35em}
 .hero-sub em{font-style:normal;color:var(--glow)}
@@ -799,6 +799,27 @@ if (typeof document!=='undefined') document.documentElement.classList.add('js');
 // svg namespace (shared)
 const NS='http://www.w3.org/2000/svg';
 
+// nav shrink
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('shrunk',scrollY>60));
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// ---------- nav active state ----------
+(function(){
+  const here=(location.pathname.split('/').pop()||'index.html');
+  const links=document.querySelectorAll('#nav .links a');
+  if(here!=='index.html') return; // subpages keep their static .on
+  links.forEach(a=>{if(a.getAttribute('href').startsWith('index.html#'))a.classList.remove('on')});
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){
+      links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id||a.getAttribute('href')==='index.html#'+e.target.id));
+    }});
+  },{rootMargin:'-35% 0px -55% 0px'});
+  ['ether','history','am001','regions','factions','powers','bestiary','crystal','gloss'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
+})();
 // aether particles
 const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
 let W,H,ps=[];
@@ -815,6 +836,7 @@ for(let i=0;i<90;i++)ps.push({x:Math.random()*W,y:Math.random()*H,r:Math.random(
     ctx.fillStyle=`rgba(180,150,255,${a})`;
     ctx.shadowColor='rgba(157,123,255,.9)';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;}
   requestAnimationFrame(tick)})();
+
 
 // reading progress
 const bar=document.getElementById('progress');
@@ -963,27 +985,7 @@ if (document.getElementById('smap')) {
   mapInit();
 
 }
-// nav shrink
-const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('shrunk',scrollY>60));
 
-// reveal on scroll
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// ---------- nav active state ----------
-(function(){
-  const here=(location.pathname.split('/').pop()||'index.html');
-  const links=document.querySelectorAll('#nav .links a');
-  if(here!=='index.html') return; // subpages keep their static .on
-  links.forEach(a=>{if(a.getAttribute('href').startsWith('index.html#'))a.classList.remove('on')});
-  const spy=new IntersectionObserver(es=>{
-    es.forEach(e=>{if(e.isIntersecting){
-      links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id||a.getAttribute('href')==='index.html#'+e.target.id));
-    }});
-  },{rootMargin:'-35% 0px -55% 0px'});
-  ['ether','history','am001','regions','factions','powers','bestiary','crystal','gloss'].forEach(id=>{const el=document.getElementById(id);if(el)spy.observe(el)});
-})();
 </script>
 </body>
 </html>
